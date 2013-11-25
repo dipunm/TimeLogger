@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.Win32;
+using TimeLogger.Core;
 using TimeLogger.Domain;
 using TimeLogger.Models;
 using TimeLogger.Services;
@@ -12,7 +14,7 @@ namespace TimeLogger
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {
+    {        
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             // contains settings for the application to run
@@ -27,12 +29,17 @@ namespace TimeLogger
             // provides an interface for managing both the window and viewModel together.
             var promptManager = new PromptManager(settingsModel);
 
+            // stores and retrieves all time logging data.
             var logRepo = new RavenLogRepository(@"E:\TimeLogger\");
 
+            // provides a testable means of getting the current time.
             var clock = new Clock();
 
             // manages the current day.
-            var dayTracker = new DayTracker(logRepo);
+            var dayTracker = new LogTracker(logRepo);
+            
+            // manages windows events to ensure the application can handle lock and sleep.
+            var activityTracker = new ActivityTracker(clock);
 
             // attempts to orchestrate the whole application.
             var mediator = new Mediator(settingsModel, promptManager, dayTracker, clock);

@@ -18,17 +18,17 @@ namespace TimeLogger.Domain
     {
         private readonly Settings _settingsModel;
         private readonly PromptManager _promptManager;
-        private readonly DayTracker _dayTracker;
+        private readonly LogTracker _logTracker;
         private readonly IClock _clock;
         private readonly Timer _timer;
         private WelcomeWindow _welcomeWindow;
         private LoggerWindow _loggerWindow;
 
-        public Mediator(Settings settingsModel, PromptManager promptManager, DayTracker dayTracker, IClock clock)
+        public Mediator(Settings settingsModel, PromptManager promptManager, LogTracker logTracker, IClock clock)
         {
             _settingsModel = settingsModel;
             _promptManager = promptManager;
-            _dayTracker = dayTracker;
+            _logTracker = logTracker;
             _clock = clock;
 
             _timer = new Timer();
@@ -58,7 +58,7 @@ namespace TimeLogger.Domain
 
         public void ShowLogger()
         {
-            var minutesToLog = _dayTracker.GetMinutesToLog(_clock.Now());
+            var minutesToLog = _logTracker.GetMinutesToLog(_clock.Now());
             if (minutesToLog <= 0)
             {
                 return;
@@ -68,7 +68,7 @@ namespace TimeLogger.Domain
 
         private void ShowPrompt()
         {
-            var timeToLog = TimeSpan.FromMinutes(_dayTracker.GetMinutesToLog(_clock.Now()));
+            var timeToLog = TimeSpan.FromMinutes(_logTracker.GetMinutesToLog(_clock.Now()));
             if (timeToLog <= TimeSpan.FromMinutes(1))
             {
                 Sleep();
@@ -89,7 +89,7 @@ namespace TimeLogger.Domain
 
         public void CloseWelcome(DateTime start)
         {
-            _dayTracker.SetDayStartTime(start);
+            _logTracker.SetDayStartTime(start);
             _welcomeWindow.Hide();
         }
 

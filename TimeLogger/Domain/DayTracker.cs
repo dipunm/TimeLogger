@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeLogger.Core;
 using TimeLogger.Models;
 using TimeLogger.Services;
 
@@ -12,13 +13,13 @@ namespace TimeLogger.Domain
     /// Keeps track of a working day.
     /// 
     /// </summary>
-    public class DayTracker
+    public class LogTracker : ILogTracker
     {
         private readonly ILogRepository _logRepository;
         private DateTime StartTime { get; set; }
         private DateTime TodaysDate { get; set; }
 
-        public DayTracker(ILogRepository logRepository)
+        public LogTracker(ILogRepository logRepository)
         {
             _logRepository = logRepository;
         }

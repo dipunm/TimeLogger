@@ -1,0 +1,13 @@
+startTime = x
+dayLength = * (infinity)
+if(now - startTime > 12 && computer.IsAsleep) 
+	prompt: still working? yes no.
+	day had finished.
+	find last sleep time and log as break from there.
+	Leave prompt open for morning to log rest of time.
+	work logged should be logged for old day
+	logging work should be logged for new day
+	Welcome window < opportunity to adjust arrival time
+	Start again.
+
+//TODO: detecting when the computer sleeps.

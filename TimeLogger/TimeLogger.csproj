@@ -107,9 +107,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ActivityTracker.cs" />
     <Compile Include="Domain\DayTracker.cs" />
-    <Compile Include="Domain\ITimer.cs" />
+    <Compile Include="Core\ITimer.cs" />
+    <Compile Include="Core\ILogTracker.cs" />
+    <Compile Include="Core\IPromptManager.cs" />
     <Compile Include="Domain\Mediator.cs" />
+    <Compile Include="Core\IActivityTracker.cs" />
     <Compile Include="Models\WorkLog.cs" />
     <Compile Include="Models\WorkTicket.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />

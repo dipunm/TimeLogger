@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using TimeLogger.Core;
 using TimeLogger.Models;
 using TimeLogger.ViewModels;
 using TimeLogger.Views.Modal;
@@ -9,7 +10,7 @@ namespace TimeLogger.Domain
     /// <summary>
     /// Manages the initialisation and launching of the prompt window.
     /// </summary>
-    public class PromptManager
+    public class PromptManager : IPromptManager
     {
         private readonly Window _prompt;
         private readonly PromptViewModel _viewModel;
