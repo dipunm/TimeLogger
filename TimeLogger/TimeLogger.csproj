@@ -108,12 +108,20 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Domain\ActivityTracker.cs" />
+    <Compile Include="Domain\Data\IWorkRepository.cs" />
+    <Compile Include="Domain\Data\RavenBasedWorkRepository.cs" />
+    <Compile Include="Domain\Data\WorkLog.cs" />
     <Compile Include="Domain\DayTracker.cs" />
     <Compile Include="Core\ITimer.cs" />
     <Compile Include="Core\ILogTracker.cs" />
     <Compile Include="Core\IPromptManager.cs" />
     <Compile Include="Domain\Mediator.cs" />
     <Compile Include="Core\IActivityTracker.cs" />
+    <Compile Include="Domain\OfficeManager\Computer.cs" />
+    <Compile Include="Domain\OfficeManager\IComputer.cs" />
+    <Compile Include="Domain\OfficeManager\IOfficeManager.cs" />
+    <Compile Include="Domain\UI\IUserInterface.cs" />
+    <Compile Include="Domain\UI\Timings.cs" />
     <Compile Include="Models\WorkLog.cs" />
     <Compile Include="Models\WorkTicket.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
