@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Raven.Client;
 using Raven.Client.Embedded;
-using TimeLogger.Domain.Data;
-using TimeLogger.Models;
 
-namespace TimeLogger.Services
+namespace TimeLogger.Domain.Data
 {
-    public class RavenLogRepository : ILogRepository
+    public class RavenBasedWorkRepository : IWorkRepository
     {
         private readonly EmbeddableDocumentStore _documentStore;
         public RavenLogRepository(string path)
@@ -31,11 +28,13 @@ namespace TimeLogger.Services
             }
         }
 
-        public IList<WorkLog> GetAllLogs()
+        public IList<WorkLog> GetLogsForDate(DateTime date)
         {
             using (var session = _documentStore.OpenSession())
             {
-                return session.Query<WorkLog>().ToList();
+                return session.Query<WorkLog>()
+                    .Where(l => l.Date.Date == date.Date)
+                    .ToList();
             }
         }
 
