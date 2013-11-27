@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TimeLogger.Domain.Data
+namespace TimeLogger.Core.Data
 {
     public interface IWorkRepository
     {

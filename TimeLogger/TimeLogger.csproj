@@ -107,35 +107,29 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Domain\ActivityTracker.cs" />
-    <Compile Include="Domain\Data\IWorkRepository.cs" />
+    <Compile Include="Core\Data\IWorkRepository.cs" />
+    <Compile Include="Core\OfficeManager\ITimeLoggingConsumer.cs" />
     <Compile Include="Domain\Data\RavenBasedWorkRepository.cs" />
-    <Compile Include="Domain\Data\WorkLog.cs" />
-    <Compile Include="Domain\DayTracker.cs" />
-    <Compile Include="Core\ITimer.cs" />
-    <Compile Include="Core\ILogTracker.cs" />
-    <Compile Include="Core\IPromptManager.cs" />
-    <Compile Include="Domain\Mediator.cs" />
-    <Compile Include="Core\IActivityTracker.cs" />
-    <Compile Include="Domain\OfficeManager\Computer.cs" />
-    <Compile Include="Domain\OfficeManager\IComputer.cs" />
-    <Compile Include="Domain\OfficeManager\IOfficeManager.cs" />
-    <Compile Include="Domain\UI\IUserInterface.cs" />
-    <Compile Include="Domain\UI\Timings.cs" />
-    <Compile Include="Models\WorkLog.cs" />
-    <Compile Include="Models\WorkTicket.cs" />
+    <Compile Include="Core\Data\WorkLog.cs" />
+    <Compile Include="Domain\UI\WindowViewModelController.cs" />
+    <Compile Include="Domain\Utils\Timer.cs" />
+    <Compile Include="Domain\Utils\TimerFactory.cs" />
+    <Compile Include="Domain\Utils\WindowsUserTracker.cs" />
+    <Compile Include="Core\Utils\IUserTracker.cs" />
+    <Compile Include="Core\OfficeManager\IOfficeManager.cs" />
+    <Compile Include="Core\Utils\ITimer.cs" />
+    <Compile Include="Core\Utils\ITimerFactory.cs" />
+    <Compile Include="Domain\OfficeManager\OfficeManager.cs" />
+    <Compile Include="Domain\UI\UIConsumer.cs" />
+    <Compile Include="Core\OfficeManager\Timings.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\ObservableObject.cs" />
-    <Compile Include="Domain\PromptManager.cs" />
-    <Compile Include="Services\IClock.cs" />
-    <Compile Include="Services\Clock.cs" />
-    <Compile Include="Services\RavenLogRepository.cs" />
+    <Compile Include="Core\Utils\IClock.cs" />
+    <Compile Include="Domain\Utils\Clock.cs" />
     <Compile Include="ViewModels\PromptViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\IJiraService.cs" />
-    <Compile Include="Services\ILogRepository.cs" />
     <Compile Include="Services\ITempoService.cs" />
-    <Compile Include="Models\Settings.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\WorkEntryViewModel.cs" />
     <Compile Include="ViewModels\WorkLogStatsViewModel.cs" />
@@ -208,7 +202,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\UI\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

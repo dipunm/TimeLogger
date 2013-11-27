@@ -1,6 +1,6 @@
 using System;
 
-namespace TimeLogger.Domain.UI
+namespace TimeLogger.Core.OfficeManager
 {
     public class Timings
     {

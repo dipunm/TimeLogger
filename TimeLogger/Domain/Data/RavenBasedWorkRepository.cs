@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Raven.Client.Embedded;
+using TimeLogger.Core.Data;
 
 namespace TimeLogger.Domain.Data
 {

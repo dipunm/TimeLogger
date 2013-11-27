@@ -20,7 +20,7 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Command="{Binding SleepCommand}">Sleep</Button>
+            <Button Command="{Binding SnoozeCommand}">Sleep</Button>
             <Button Command="{Binding ContinueCommand}">Log Time</Button>
         </StackPanel>
     </Grid>

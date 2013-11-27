@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Win32;
-using TimeLogger.Core;
 using TimeLogger.Domain;
+using TimeLogger.Domain.UI;
+using TimeLogger.Domain.Utils;
 using TimeLogger.Models;
 using TimeLogger.Services;
 using TimeLogger.ViewModels;
@@ -27,7 +28,7 @@ namespace TimeLogger
                 };
             // manages the showing of the logger prompt window.
             // provides an interface for managing both the window and viewModel together.
-            var promptManager = new PromptManager(settingsModel);
+            var promptManager = new PromptController(settingsModel);
 
             // stores and retrieves all time logging data.
             var logRepo = new RavenLogRepository(@"E:\TimeLogger\");

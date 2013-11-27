@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TimeLogger.Core.Utils;
 using TimeLogger.Domain;
 using TimeLogger.MVVM;
 using TimeLogger.Models;

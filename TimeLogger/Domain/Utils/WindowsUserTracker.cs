@@ -1,15 +1,14 @@
 using System;
 using Microsoft.Win32;
+using TimeLogger.Core.Utils;
 using TimeLogger.Services;
 
-namespace TimeLogger.Domain.OfficeManager
+namespace TimeLogger.Domain.Utils
 {
-    public class Computer : IComputer
+    public class WindowsUserTracker : IUserTracker
     {
-        private readonly IClock _clock;
-        public Computer(IClock clock)
+        public WindowsUserTracker()
         {
-            _clock = clock;
             SystemEvents.SessionSwitch += HandleSessionSwitching;
             SystemEvents.PowerModeChanged += HandlePowerChanging;
         }
@@ -50,7 +49,6 @@ namespace TimeLogger.Domain.OfficeManager
 
         private void Pause()
         {
-            LastEnded = _clock.Now();
             if (UserLeft != null)
             {
                 UserLeft.Invoke(this);
@@ -59,15 +57,12 @@ namespace TimeLogger.Domain.OfficeManager
 
         private void Resume()
         {
-            LastBegun = _clock.Now();
             if (UserReturned != null)
             {
                 UserReturned.Invoke(this);
             }
         }
 
-        public DateTime? LastEnded { get; private set; }
-        public DateTime LastBegun { get; private set; }
         public event ComputerEventHandler UserLeft;
         public event ComputerEventHandler UserReturned;
     }

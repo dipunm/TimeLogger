@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using TimeLogger.Core.Utils;
 using TimeLogger.Domain;
 using TimeLogger.MVVM;
 using TimeLogger.Models;

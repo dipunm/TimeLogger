@@ -1,6 +1,7 @@
 ﻿using System;
+using TimeLogger.Core.Utils;
 
-namespace TimeLogger.Services
+namespace TimeLogger.Domain.Utils
 {
     public class Clock : IClock
     {
