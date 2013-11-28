@@ -22,7 +22,7 @@ namespace TimeLogger.Domain.UI
             if(element is IViewModelHandler<TViewModel>)
                 ApplyViewModel((IViewModelHandler<TViewModel>)element);
             else
-                element.DataContext = ViewModel;
+                element.Dispatcher.Invoke(() => element.DataContext = ViewModel);
         }
 
         protected void ApplyViewModel(IViewModelHandler<TViewModel> element)

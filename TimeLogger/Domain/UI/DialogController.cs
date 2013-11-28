@@ -19,6 +19,7 @@ namespace TimeLogger.Domain.UI
             bool? returnCode = null;
             window.Dispatcher.Invoke(() => returnCode = window.ShowDialog());
             return returnCode;
+
         }
     }
 }

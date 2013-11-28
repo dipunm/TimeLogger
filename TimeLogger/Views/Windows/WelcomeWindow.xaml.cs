@@ -21,11 +21,15 @@ namespace TimeLogger.Windows
 
         public void SetViewModel(WelcomeViewModel model)
         {
-            DataContext = model;
-            ViewModel.OnConfirm(() => Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
+            {
+                DataContext = model;
+            });
+
+            model.OnConfirm(() => Dispatcher.Invoke(() =>
             {
                 DialogResult = true;
-                Hide();
+                Close();
             }));
         }
     }

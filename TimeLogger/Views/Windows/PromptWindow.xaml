@@ -19,8 +19,8 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button IsEnabled="{Binding CanSnooze}" Click="SnoozeClick">Sleep</Button>
-            <Button Click="LogTimeClick">Log Time</Button>
+            <Button IsEnabled="{Binding CanSnooze}" IsCancel="True" Click="SnoozeClick" Margin="9,5,9,1">Sleep</Button>
+            <Button Click="LogTimeClick" IsDefault="True">Log Time</Button>
         </StackPanel>
     </Grid>
 </Window>

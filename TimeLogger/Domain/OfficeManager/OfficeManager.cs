@@ -82,8 +82,10 @@ namespace TimeLogger.Domain.OfficeManager
 
         public void SubmitWork(IList<WorkLog> work)
         {
+            var date = _clock.Now().Date;
             foreach (WorkLog item in work)
             {
+                item.Date = date;
                 _storage.AddLog(item);
             }
 

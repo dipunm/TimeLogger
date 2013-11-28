@@ -37,6 +37,7 @@
     <StartupObject>TimeLogger.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -51,6 +52,7 @@
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.2.0.6.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Raven.Abstractions">
       <HintPath>..\packages\RavenDB.Database.2.5.2750\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -63,11 +65,14 @@
     <Reference Include="Raven.Database">
       <HintPath>..\packages\RavenDB.Database.2.5.2750\lib\net45\Raven.Database.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
@@ -81,6 +86,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -131,6 +138,17 @@
     <Compile Include="MVVM\ObservableObject.cs" />
     <Compile Include="Core\Utils\IClock.cs" />
     <Compile Include="Domain\Utils\Clock.cs" />
+    <Compile Include="Testing\TestObjects\TestTimerFactory.cs" />
+    <Compile Include="Testing\ViewModels\ClockViewModel.cs" />
+    <Compile Include="Testing\TestObjects\TestClock.cs" />
+    <Compile Include="Testing\TestObjects\TestTimer.cs" />
+    <Compile Include="Testing\ViewModels\TimerViewModel.cs" />
+    <Compile Include="Testing\Views\ClockWindow.xaml.cs">
+      <DependentUpon>ClockWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Testing\Views\TimerWindow.xaml.cs">
+      <DependentUpon>TimerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\PromptViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ITempoService.cs" />
@@ -157,6 +175,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Testing\Views\ClockWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Testing\Views\TimerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\PromptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

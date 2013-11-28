@@ -16,18 +16,20 @@ namespace TimeLogger.Windows
 
         public void SetViewModel(LoggerViewModel model)
         {
-            var oldModel = DataContext as LoggerViewModel;
-            if(oldModel != null)
-                oldModel.Finished -= Finished;
-    
-            DataContext = model;
-            model.Finished += Finished;
+            Dispatcher.Invoke(() =>
+            {
+                DataContext = model;
+            });
+            model.SetFinishedAction(Finished);
         }
 
         private void Finished()
         {
-            DialogResult = true;
-            Close();
+            Dispatcher.Invoke(() =>
+            {
+                DialogResult = true;
+                Hide();
+            });
         }
     }
 }

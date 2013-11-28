@@ -46,6 +46,11 @@ namespace TimeLogger.ViewModels
             _submitWorkAction = submitWorkAction;
         }
 
-        public event Action Finished;
+        public void SetFinishedAction(Action finished)
+        {
+            Finished = finished;
+        }
+
+        private Action Finished;
     }
 }

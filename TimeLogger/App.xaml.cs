@@ -3,6 +3,8 @@ using TimeLogger.Domain.Data;
 using TimeLogger.Domain.OfficeManager;
 using TimeLogger.Domain.UI;
 using TimeLogger.Domain.Utils;
+using TimeLogger.Testing;
+using TimeLogger.Testing.TestObjects;
 using TimeLogger.ViewModels;
 using TimeLogger.Views.Windows;
 using TimeLogger.Windows;
@@ -16,17 +18,20 @@ namespace TimeLogger
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
             //////////
             // READY!
             //////////
             //utils
-            var clock = new Clock();
-            var timerFactory = new TimerFactory(clock);
+            var clock = new TestClock(); //new Clock();
+            var timerFactory = new TestTimerFactory(clock);//new TimerFactory(clock);
             var userTracker = new WindowsUserTracker();
 
             //repo
-            var storage = new RavenBasedWorkRepository(@"E:\TimeLogger\");
-
+            //var storage = new RavenBasedWorkRepository(@"E:\TimeLogger\");
+            var storage = new RavenBasedWorkRepository();
+            
             //////////
             // SET!
             //////////
@@ -37,15 +42,15 @@ namespace TimeLogger
             var consumer = new UIConsumer(clock,
                 
                 new DialogController<PromptViewModel>(
-                    () => new PromptWindow(), 
+                    () => Dispatcher.Invoke(() => new PromptWindow()), 
                     new PromptViewModel()),
                 
                 new DialogController<WelcomeViewModel>(
-                    () => new WelcomeWindow(), 
+                    () => Dispatcher.Invoke(() => new WelcomeWindow()), 
                     new WelcomeViewModel(clock)),
                 
                 new DialogController<LoggerViewModel>(
-                    () => new LoggerWindow(), 
+                    () => Dispatcher.Invoke(() => new LoggerWindow()), 
                     new LoggerViewModel())
             );
 
@@ -53,7 +58,7 @@ namespace TimeLogger
             // GO!
             //////////
             officeManager.ClockIn(consumer);
-
+            
 
             //initialise tasktray
             //load welcome screen (allows entering start time and settings)

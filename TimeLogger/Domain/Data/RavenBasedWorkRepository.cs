@@ -11,15 +11,28 @@ namespace TimeLogger.Domain.Data
     {
         private readonly EmbeddableDocumentStore _documentStore;
 
-        public RavenBasedWorkRepository(string path)
+        protected RavenBasedWorkRepository(EmbeddableDocumentStore dataStore)
         {
-            _documentStore = new EmbeddableDocumentStore
-                {
-                    DataDirectory = path
-                };
+            _documentStore = dataStore;
             _documentStore.Initialize();
         }
 
+        public RavenBasedWorkRepository(string path) 
+            : this(new EmbeddableDocumentStore()
+            {
+                DataDirectory = path
+            })
+        {
+        }
+
+        public RavenBasedWorkRepository()
+            : this(new EmbeddableDocumentStore()
+            {
+                RunInMemory = true
+            })
+        {
+        }
+        
         public void AddLog(WorkLog log)
         {
             using (IDocumentSession session = _documentStore.OpenSession())
