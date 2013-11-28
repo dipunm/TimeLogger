@@ -10,7 +10,7 @@ namespace TimeLogger.ViewModels
     {
         private readonly List<WorkLog> _loggedWork;
         private Action<IList<WorkLog>> _submitWorkAction;
-
+        
         public LoggerViewModel()
         {
             _loggedWork = new List<WorkLog>();
@@ -21,7 +21,7 @@ namespace TimeLogger.ViewModels
 
         public WorkEntryViewModel Entry { get; private set; }
         public WorkLogStatsViewModel Stats { get; private set; }
-
+        
         public void HandleWorkLog(WorkLog workLog)
         {
             _loggedWork.Add(workLog);
@@ -30,6 +30,8 @@ namespace TimeLogger.ViewModels
             {
                 _submitWorkAction.Invoke(_loggedWork);
                 _loggedWork.Clear();
+                if(Finished != null)
+                    Finished.Invoke();
             }
         }
 
@@ -43,5 +45,7 @@ namespace TimeLogger.ViewModels
         {
             _submitWorkAction = submitWorkAction;
         }
+
+        public event Action Finished;
     }
 }

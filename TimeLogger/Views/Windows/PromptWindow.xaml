@@ -1,4 +1,4 @@
-﻿<Window x:Class="TimeLogger.Views.Modal.PromptWindow"
+﻿<Window x:Class="TimeLogger.Views.Windows.PromptWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:TimeLogger.ViewModels"
@@ -19,8 +19,8 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Command="{Binding SnoozeCommand}">Sleep</Button>
-            <Button Command="{Binding ContinueCommand}">Log Time</Button>
+            <Button IsEnabled="{Binding CanSnooze}" Click="SnoozeClick">Sleep</Button>
+            <Button Click="LogTimeClick">Log Time</Button>
         </StackPanel>
     </Grid>
 </Window>

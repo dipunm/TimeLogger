@@ -6,39 +6,16 @@ namespace TimeLogger.ViewModels
 {
     public class PromptViewModel : ObservableObject
     {
-        private ICommand _continueCommand;
-        private ICommand _snoozeCommand;
-
-        public ICommand SnoozeCommand
+        private bool _canSnooze;
+        public bool CanSnooze
         {
-            get { return _snoozeCommand; }
-            private set
+            get { return _canSnooze; }
+            set
             {
-                if (Equals(value, _snoozeCommand)) return;
-                _snoozeCommand = value;
+                if (value.Equals(_canSnooze)) return;
+                _canSnooze = value;
                 OnPropertyChanged();
             }
-        }
-
-        public ICommand ContinueCommand
-        {
-            get { return _continueCommand; }
-            private set
-            {
-                if (Equals(value, _continueCommand)) return;
-                _continueCommand = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public void SetContinueAction(Action<object> continueAction)
-        {
-            ContinueCommand = new DelegateCommand(continueAction);
-        }
-
-        public void SetSnoozeAction(Action<object> snoozeAction)
-        {
-            SnoozeCommand = new DelegateCommand(snoozeAction);
         }
     }
 }

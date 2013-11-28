@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TimeLogger.MVVM;
 using TimeLogger.ViewModels;
 
 namespace TimeLogger.Windows
@@ -6,7 +7,7 @@ namespace TimeLogger.Windows
     /// <summary>
     ///     Interaction logic for LogWindow.xaml
     /// </summary>
-    public partial class WelcomeWindow : Window
+    public partial class WelcomeWindow : Window,  IViewModelHandler<WelcomeViewModel>
     {
         public WelcomeWindow()
         {
@@ -18,14 +19,14 @@ namespace TimeLogger.Windows
             get { return DataContext as WelcomeViewModel; }
         }
 
-        public override void EndInit()
+        public void SetViewModel(WelcomeViewModel model)
         {
-            base.EndInit();
+            DataContext = model;
             ViewModel.OnConfirm(() => Dispatcher.Invoke(() =>
-                {
-                    DialogResult = true;
-                    Hide();
-                }));
+            {
+                DialogResult = true;
+                Hide();
+            }));
         }
     }
 }

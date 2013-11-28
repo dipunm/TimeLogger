@@ -18,6 +18,7 @@ namespace TimeLogger.Domain.Utils
                 {
                     AutoReset = false
                 };
+            _realTimer.Elapsed += (sender, args) => OnElapsed();
         }
 
         public event TimerElapsedAction Elapsed;
@@ -59,10 +60,7 @@ namespace TimeLogger.Domain.Utils
                 TimeSpan timeTaken = _clock.Now() - _beganTime.Value;
                 if (timeTaken >= Duration)
                 {
-                    if (Elapsed != null)
-                    {
-                        Elapsed.Invoke(this);
-                    }
+                    OnElapsed();
                     Reset();
                 }
                 else
@@ -71,6 +69,14 @@ namespace TimeLogger.Domain.Utils
                     _realTimer.Interval = timeLeft.TotalMilliseconds;
                     _realTimer.Start();
                 }
+            }
+        }
+
+        private void OnElapsed()
+        {
+            if (Elapsed != null)
+            {
+                Elapsed.Invoke(this);
             }
         }
 

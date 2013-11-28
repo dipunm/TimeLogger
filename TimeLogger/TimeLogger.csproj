@@ -110,10 +110,12 @@
     <Compile Include="Core\Data\IWorkRepository.cs" />
     <Compile Include="Core\OfficeManager\ITimeLoggingConsumer.cs" />
     <Compile Include="Core\Utils\ITimeTracker.cs" />
+    <Compile Include="Domain\UI\DialogController.cs" />
+    <Compile Include="Domain\UI\ViewController.cs" />
     <Compile Include="Domain\Utils\TimeTracker.cs" />
     <Compile Include="Domain\Data\RavenBasedWorkRepository.cs" />
     <Compile Include="Core\Data\WorkLog.cs" />
-    <Compile Include="Domain\UI\WindowViewModelController.cs" />
+    <Compile Include="Domain\UI\WindowController.cs" />
     <Compile Include="Domain\Utils\Timer.cs" />
     <Compile Include="Domain\Utils\TimerFactory.cs" />
     <Compile Include="Domain\Utils\WindowsUserTracker.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Domain\UI\UIConsumer.cs" />
     <Compile Include="Core\OfficeManager\Timings.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\IViewModelHandler.cs" />
     <Compile Include="MVVM\ObservableObject.cs" />
     <Compile Include="Core\Utils\IClock.cs" />
     <Compile Include="Domain\Utils\Clock.cs" />
@@ -134,7 +137,7 @@
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\WorkEntryViewModel.cs" />
     <Compile Include="ViewModels\WorkLogStatsViewModel.cs" />
-    <Compile Include="Views\Modal\PromptWindow.xaml.cs">
+    <Compile Include="Views\Windows\PromptWindow.xaml.cs">
       <DependentUpon>PromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\Form.xaml.cs">
@@ -154,7 +157,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Modal\PromptWindow.xaml">
+    <Page Include="Views\Windows\PromptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

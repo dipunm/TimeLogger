@@ -4,7 +4,7 @@ using TimeLogger.Domain.OfficeManager;
 using TimeLogger.Domain.UI;
 using TimeLogger.Domain.Utils;
 using TimeLogger.ViewModels;
-using TimeLogger.Views.Modal;
+using TimeLogger.Views.Windows;
 using TimeLogger.Windows;
 
 namespace TimeLogger
@@ -34,15 +34,20 @@ namespace TimeLogger
             var officeManager = new OfficeManager(timerFactory, clock, storage, userTracker);
 
             //UI
-            var consumer = new UIConsumer(
-                clock,
-                new WindowViewModelController<PromptViewModel>(
-                    new PromptWindow(), new PromptViewModel()),
-                new WindowViewModelController<WelcomeViewModel>(
-                    new WelcomeWindow(), new WelcomeViewModel(clock)),
-                new WindowViewModelController<LoggerViewModel>(
-                    new LoggerWindow(), new LoggerViewModel())
-                );
+            var consumer = new UIConsumer(clock,
+                
+                new DialogController<PromptViewModel>(
+                    () => new PromptWindow(), 
+                    new PromptViewModel()),
+                
+                new DialogController<WelcomeViewModel>(
+                    () => new WelcomeWindow(), 
+                    new WelcomeViewModel(clock)),
+                
+                new DialogController<LoggerViewModel>(
+                    () => new LoggerWindow(), 
+                    new LoggerViewModel())
+            );
 
             //////////
             // GO!

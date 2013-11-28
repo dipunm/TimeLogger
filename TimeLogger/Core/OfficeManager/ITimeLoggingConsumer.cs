@@ -8,7 +8,7 @@ namespace TimeLogger.Core.OfficeManager
         DateTime GetStartTime();
 
         void LogTime(IOfficeManager officeManager, TimeSpan timeToLog);
-        void SetSnoozeEnabled(IOfficeManager officeManager, bool enabled);
+        void SetSnoozeEnabled(bool enabled);
 
         DateTime GetEndTime();
     }

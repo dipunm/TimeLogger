@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using TimeLogger.Core.Data;
 using TimeLogger.Core.OfficeManager;
 using TimeLogger.Core.Utils;
@@ -11,17 +12,17 @@ namespace TimeLogger.Domain.UI
     public class UIConsumer : ITimeLoggingConsumer
     {
         private readonly IClock _clock;
-        private readonly WindowViewModelController<LoggerViewModel> _loggerView;
-        private readonly WindowViewModelController<PromptViewModel> _promptView;
-        private readonly WindowViewModelController<WelcomeViewModel> _welcomeView;
-        private DateTime _startTime;
+        private readonly DialogController<LoggerViewModel> _loggerView;
+        private readonly DialogController<PromptViewModel> _promptView;
+        private readonly DialogController<WelcomeViewModel> _welcomeView;
+        private DateTime? _startTime;
         private List<string> _timeLoggingTicketCodes;
         private Timings _timings;
 
         public UIConsumer(IClock clock,
-                          WindowViewModelController<PromptViewModel> promptView,
-                          WindowViewModelController<WelcomeViewModel> welcomeView,
-                          WindowViewModelController<LoggerViewModel> loggerView
+                          DialogController<PromptViewModel> promptView,
+                          DialogController<WelcomeViewModel> welcomeView,
+                          DialogController<LoggerViewModel> loggerView
             )
         {
             _clock = clock;
@@ -34,90 +35,113 @@ namespace TimeLogger.Domain.UI
         {
             if (_timings == null)
             {
-                CollectFromWelcomeWindow();
-
-                WelcomeViewModel viewModel = _welcomeView.ViewModel;
-                _timings = new Timings
-                    {
-                        SleepAmount = TimeSpan.FromMinutes(viewModel.SleepDurationMins),
-                        SnoozeAmount = TimeSpan.FromMinutes(viewModel.SnoozeDurationMins),
-                        SnoozeLimit = TimeSpan.FromMinutes(viewModel.MaxSnoozeDurationMins)
-                    };
+                LaunchWelcomeWindow();
             }
             return _timings;
         }
 
         public DateTime GetStartTime()
         {
-            if (_startTime.Date != _clock.Now().Date)
+            while (_startTime == null)
             {
-                CollectFromWelcomeWindow();
-                _startTime = _welcomeView.ViewModel.StartTime;
+                LaunchWelcomeWindow();
             }
-            return _startTime;
+            return _startTime.Value;
         }
 
         public void LogTime(IOfficeManager officeManager, TimeSpan timeToLog)
         {
-            ITimeTracker session = officeManager.CreateTrackingSession();
-            session.Start();
-            _promptView.ShowWindow();
-            _promptView.ViewModel.SetSnoozeAction(_ => officeManager.RemindMeInABit());
-            _promptView.ViewModel.SetContinueAction(_ =>
-                {
-                    TimeSpan elapsedTime = session.Stop();
-                    ShowLogger(officeManager, timeToLog + elapsedTime);
-                });
+            bool? result;
+            TimeSpan elapsedTime;
+            if (_startTime == null)
+            {
+                /*
+                 * If _startTime is null, we have reached the end of the day.
+                 * It is time to just log and not worry about prompts
+                 */
+                result = true;
+                elapsedTime = TimeSpan.Zero;
+            }
+            else
+            {
+                ITimeTracker session = officeManager.CreateTrackingSession();
+                session.Start();
+                result = _promptView.ShowDialog();
+                elapsedTime = session.Stop();
+            }
+
+            if (result == null || result == false)
+            {
+                officeManager.RemindMeInABit();
+            }
+            else
+            {
+                ShowLogger(officeManager, timeToLog + elapsedTime);
+            }
         }
 
-        public void SetSnoozeEnabled(IOfficeManager officeManager, bool enabled)
+        public void SetSnoozeEnabled(bool enabled)
         {
-            _promptView.ViewModel.SetSnoozeAction(enabled
-                                                      ? _ =>
-                                                          {
-                                                              _promptView.Window.Hide();
-                                                              officeManager.RemindMeInABit();
-                                                          }
-                                                      : (Action<object>) null);
+            _promptView.ViewModel.CanSnooze = enabled;
         }
 
         public DateTime GetEndTime()
         {
-            return _clock.Now(); // GetEndTimeFromWindow
+            try
+            {
+                return _clock.Now(); // GetEndTimeFromWindow
+            }
+            finally
+            {
+                _startTime = null; //ready for tomorrow!
+            }
         }
 
-        private void CollectFromWelcomeWindow()
+        private void LaunchWelcomeWindow()
         {
-            while (!_welcomeView.Window.DialogResult.HasValue || _welcomeView.Window.DialogResult == false)
+            bool? result = null;
+            while (!result.HasValue || result == false)
             {
-                _welcomeView.ShowDialog();
+                result = _welcomeView.ShowDialog();
             }
-            _welcomeView.Window.DialogResult = null;
 
-            _timeLoggingTicketCodes = _welcomeView.ViewModel.TimeLoggingTickets
-                                                  .Split(',')
-                                                  .Select(t => t.Trim())
-                                                  .ToList();
+            WelcomeViewModel viewModel = _welcomeView.ViewModel;
+            _startTime = viewModel.StartTime;
+            _timings = new Timings
+            {
+                SleepAmount = TimeSpan.FromMinutes(viewModel.SleepDurationMins),
+                SnoozeAmount = TimeSpan.FromMinutes(viewModel.SnoozeDurationMins),
+                SnoozeLimit = TimeSpan.FromMinutes(viewModel.MaxSnoozeDurationMins)
+            };
+            _timeLoggingTicketCodes = viewModel.TimeLoggingTickets
+                .Split(',')
+                .Select(t => t.Trim())
+                .ToList();
         }
 
         private void ShowLogger(IOfficeManager officeManager, TimeSpan timeToLog)
         {
             ITimeTracker session = officeManager.CreateTrackingSession();
             session.Start();
-            _loggerView.Window.Show();
             _loggerView.ViewModel.SetCompleteAction(work =>
                 {
                     TimeSpan timeSpent = session.Stop();
                     work.Add(new WorkLog
                         {
                             Comment = "Logging Work",
-                            Minutes = (int) Math.Ceiling(timeSpent.TotalMinutes),
+                            Minutes = (int)Math.Ceiling(timeSpent.TotalMinutes),
                             TicketCodes = _timeLoggingTicketCodes
                         });
 
                     officeManager.SubmitWork(work);
                 });
-            _loggerView.ViewModel.Reset((int) Math.Ceiling(timeToLog.TotalMinutes));
+            _loggerView.ViewModel.Reset((int)Math.Ceiling(timeToLog.TotalMinutes));
+
+            bool? result = null;
+            while (result != true)
+            {
+                result = _loggerView.ShowDialog();
+            }
         }
     }
 }

@@ -54,6 +54,7 @@ namespace TimeLogger.Domain.OfficeManager
             TimeSpan timeToLog = GetTimeToLog(endTime);
             if (timeToLog > TimeSpan.Zero)
             {
+                _consumer.SetSnoozeEnabled(false);
                 _consumer.LogTime(this, timeToLog);
             }
             _consumer = null;
@@ -91,7 +92,7 @@ namespace TimeLogger.Domain.OfficeManager
                 TimeSpan sleepableDuration = GetSleepableDuration();
                 if (sleepableDuration > TimeSpan.Zero)
                 {
-                    _consumer.SetSnoozeEnabled(this, true);
+                    _consumer.SetSnoozeEnabled(true);
                     _snoozeAllowanceTimer.Reset();
                     _snoozeAllowanceTimer.Duration = sleepableDuration;
                     _snoozeAllowanceTimer.Start();
@@ -143,7 +144,7 @@ namespace TimeLogger.Domain.OfficeManager
         private void DisableSnooze(ITimer sender)
         {
             if (_consumer != null)
-                _consumer.SetSnoozeEnabled(this, false);
+                _consumer.SetSnoozeEnabled(false);
         }
 
         private void Sleep()
@@ -156,7 +157,7 @@ namespace TimeLogger.Domain.OfficeManager
                 if (_timings.SleepAmount > timeToLog)
                     _workLogTimer.Duration = _timings.SleepAmount - timeToLog;
                 else
-                    _workLogTimer.Duration = TimeSpan.FromTicks(1);
+                    _workLogTimer.Duration = TimeSpan.FromMilliseconds(1);
             }
             else
             {
