@@ -1,18 +1,31 @@
 using System;
 using Microsoft.Win32;
 using TimeLogger.Core.Utils;
-using TimeLogger.Services;
 
 namespace TimeLogger.Domain.Utils
 {
-    public class WindowsUserTracker : IUserTracker
+    public class WindowsUserTracker : IUserTracker, IDisposable
     {
+        private bool disposed = false;
+
         public WindowsUserTracker()
         {
             SystemEvents.SessionSwitch += HandleSessionSwitching;
             SystemEvents.PowerModeChanged += HandlePowerChanging;
         }
-        
+
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                SystemEvents.SessionSwitch -= HandleSessionSwitching;
+                SystemEvents.PowerModeChanged -= HandlePowerChanging;
+            }
+        }
+
+        public event ComputerEventHandler UserLeft;
+        public event ComputerEventHandler UserReturned;
+
         private void HandlePowerChanging(object sender, PowerModeChangedEventArgs e)
         {
             switch (e.Mode)
@@ -62,8 +75,5 @@ namespace TimeLogger.Domain.Utils
                 UserReturned.Invoke(this);
             }
         }
-
-        public event ComputerEventHandler UserLeft;
-        public event ComputerEventHandler UserReturned;
     }
 }

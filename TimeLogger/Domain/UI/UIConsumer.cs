@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TimeLogger.Core.Data;
 using TimeLogger.Core.OfficeManager;
 using TimeLogger.Core.Utils;
-using TimeLogger.Domain.OfficeManager;
-using TimeLogger.Services;
 using TimeLogger.ViewModels;
 
 namespace TimeLogger.Domain.UI
@@ -10,17 +11,17 @@ namespace TimeLogger.Domain.UI
     public class UIConsumer : ITimeLoggingConsumer
     {
         private readonly IClock _clock;
+        private readonly WindowViewModelController<LoggerViewModel> _loggerView;
         private readonly WindowViewModelController<PromptViewModel> _promptView;
         private readonly WindowViewModelController<WelcomeViewModel> _welcomeView;
-        private readonly WindowViewModelController<LoggerViewModel> _loggerView;
-        
-        private Timings _timings;
         private DateTime _startTime;
+        private List<string> _timeLoggingTicketCodes;
+        private Timings _timings;
 
-        public UIConsumer(IClock clock, 
-            WindowViewModelController<PromptViewModel> promptView,
-            WindowViewModelController<WelcomeViewModel> welcomeView, 
-            WindowViewModelController<LoggerViewModel> loggerView
+        public UIConsumer(IClock clock,
+                          WindowViewModelController<PromptViewModel> promptView,
+                          WindowViewModelController<WelcomeViewModel> welcomeView,
+                          WindowViewModelController<LoggerViewModel> loggerView
             )
         {
             _clock = clock;
@@ -33,13 +34,10 @@ namespace TimeLogger.Domain.UI
         {
             if (_timings == null)
             {
-                while (!_welcomeView.Window.DialogResult.HasValue || _welcomeView.Window.DialogResult == false)
-                {
-                    _welcomeView.ShowDialog();
-                }
-                
-                var viewModel = _welcomeView.ViewModel;
-                _timings = new Timings()
+                CollectFromWelcomeWindow();
+
+                WelcomeViewModel viewModel = _welcomeView.ViewModel;
+                _timings = new Timings
                     {
                         SleepAmount = TimeSpan.FromMinutes(viewModel.SleepDurationMins),
                         SnoozeAmount = TimeSpan.FromMinutes(viewModel.SnoozeDurationMins),
@@ -53,10 +51,7 @@ namespace TimeLogger.Domain.UI
         {
             if (_startTime.Date != _clock.Now().Date)
             {
-                while (!_welcomeView.Window.DialogResult.HasValue || _welcomeView.Window.DialogResult == false)
-                {
-                    _welcomeView.ShowDialog();
-                }
+                CollectFromWelcomeWindow();
                 _startTime = _welcomeView.ViewModel.StartTime;
             }
             return _startTime;
@@ -64,26 +59,65 @@ namespace TimeLogger.Domain.UI
 
         public void LogTime(IOfficeManager officeManager, TimeSpan timeToLog)
         {
+            ITimeTracker session = officeManager.CreateTrackingSession();
+            session.Start();
             _promptView.ShowWindow();
             _promptView.ViewModel.SetSnoozeAction(_ => officeManager.RemindMeInABit());
-            _promptView.ViewModel.SetContinueAction(_ => ShowLogger(officeManager, timeToLog));
+            _promptView.ViewModel.SetContinueAction(_ =>
+                {
+                    TimeSpan elapsedTime = session.Stop();
+                    ShowLogger(officeManager, timeToLog + elapsedTime);
+                });
         }
 
-        private void ShowLogger(IOfficeManager officeManager,TimeSpan timeToLog)
+        public void SetSnoozeEnabled(IOfficeManager officeManager, bool enabled)
         {
-            _loggerView.Window.Show();
-            _loggerView.ViewModel.SetCompleteAction(officeManager.SubmitWork);
-            _loggerView.ViewModel.Reset(timeToLog + waitTime);
-        }
-
-        public void SetSnoozeEnabled(bool enabled)
-        {
-            _promptView.ViewModel.SnoozeCommand
+            _promptView.ViewModel.SetSnoozeAction(enabled
+                                                      ? _ =>
+                                                          {
+                                                              _promptView.Window.Hide();
+                                                              officeManager.RemindMeInABit();
+                                                          }
+                                                      : (Action<object>) null);
         }
 
         public DateTime GetEndTime()
         {
-            throw new NotImplementedException();
+            return _clock.Now(); // GetEndTimeFromWindow
+        }
+
+        private void CollectFromWelcomeWindow()
+        {
+            while (!_welcomeView.Window.DialogResult.HasValue || _welcomeView.Window.DialogResult == false)
+            {
+                _welcomeView.ShowDialog();
+            }
+            _welcomeView.Window.DialogResult = null;
+
+            _timeLoggingTicketCodes = _welcomeView.ViewModel.TimeLoggingTickets
+                                                  .Split(',')
+                                                  .Select(t => t.Trim())
+                                                  .ToList();
+        }
+
+        private void ShowLogger(IOfficeManager officeManager, TimeSpan timeToLog)
+        {
+            ITimeTracker session = officeManager.CreateTrackingSession();
+            session.Start();
+            _loggerView.Window.Show();
+            _loggerView.ViewModel.SetCompleteAction(work =>
+                {
+                    TimeSpan timeSpent = session.Stop();
+                    work.Add(new WorkLog
+                        {
+                            Comment = "Logging Work",
+                            Minutes = (int) Math.Ceiling(timeSpent.TotalMinutes),
+                            TicketCodes = _timeLoggingTicketCodes
+                        });
+
+                    officeManager.SubmitWork(work);
+                });
+            _loggerView.ViewModel.Reset((int) Math.Ceiling(timeToLog.TotalMinutes));
         }
     }
 }

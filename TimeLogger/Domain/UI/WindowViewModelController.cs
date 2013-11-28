@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TimeLogger.Domain.UI
 {
     public class WindowViewModelController<TViewModel>
     {
-        private readonly Window _window;
         private readonly TViewModel _viewModel;
+        private readonly Window _window;
 
         public WindowViewModelController(Window window, TViewModel viewModel)
         {
             _window = window;
             _viewModel = viewModel;
+            _window.DataContext = viewModel;
         }
 
         public Window Window

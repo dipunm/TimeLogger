@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimeLogger.MVVM;
+﻿using TimeLogger.MVVM;
 
 namespace TimeLogger.ViewModels
 {
     public class WorkLogStatsViewModel : ObservableObject
     {
+        private int _numberOfMinutesLogged;
         private int _numberOfMinutesReq;
+
         public int NumberOfMinutesRequired
         {
             get { return _numberOfMinutesReq; }
@@ -20,16 +17,19 @@ namespace TimeLogger.ViewModels
             }
         }
 
-        private int _numberOfMinutesLogged; 
-        public int NumberOfMinutesLogged {
+        public int NumberOfMinutesLogged
+        {
             get { return _numberOfMinutesLogged; }
-            set { _numberOfMinutesLogged = value;
+            set
+            {
+                _numberOfMinutesLogged = value;
                 OnPropertyChanged("NumberOfMinutesLogged");
                 OnPropertyChanged("PercentageComplete");
             }
         }
 
-        public float PercentageComplete {
+        public float PercentageComplete
+        {
             get { return ((float) NumberOfMinutesLogged)/NumberOfMinutesRequired; }
         }
 

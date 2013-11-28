@@ -3,27 +3,28 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TimeLogger.Core.Utils;
-using TimeLogger.Domain;
 using TimeLogger.MVVM;
-using TimeLogger.Models;
-using TimeLogger.Services;
 
 namespace TimeLogger.ViewModels
 {
     public class WelcomeViewModel : ObservableObject, IDataErrorInfo
     {
-        private readonly Mediator _mediator;
         private readonly IClock _clock;
+        private Action _dataConfirmed;
 
-        public WelcomeViewModel(Mediator mediator, IClock clock)
+        private int _maxSnoozeDurationMins;
+        private int _sleepDurationMins;
+        private int _snoozeDurationMins;
+        private DateTime _startTime;
+        private string _timeLoggingTickets;
+
+        public WelcomeViewModel(IClock clock)
         {
-            _mediator = mediator;
             _clock = clock;
             Begin = new DelegateCommand(BeginAction);
             StartTime = clock.Now();
         }
 
-        private int _snoozeDurationMins;
         public int SnoozeDurationMins
         {
             get { return _snoozeDurationMins; }
@@ -35,7 +36,6 @@ namespace TimeLogger.ViewModels
             }
         }
 
-        private int _sleepDurationMins;
         public int SleepDurationMins
         {
             get { return _sleepDurationMins; }
@@ -46,11 +46,6 @@ namespace TimeLogger.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private int _maxSnoozeDurationMins;
-        private DateTime _startTime;
-        private Settings _settings;
-        private string _timeLoggingTickets;
 
         public int MaxSnoozeDurationMins
         {
@@ -86,29 +81,20 @@ namespace TimeLogger.ViewModels
         }
 
         public ICommand Begin { get; private set; }
-        private void BeginAction()
-        {
-            _settings.MaxSnoozeLimit = TimeSpan.FromMinutes(MaxSnoozeDurationMins);
-            _settings.SleepDuration = TimeSpan.FromMinutes(SleepDurationMins);
-            _settings.SnoozeDuration = TimeSpan.FromMinutes(SnoozeDurationMins);
-            _settings.TimeLoggingTickets = TimeLoggingTickets;
-            
-            _mediator.CloseWelcome(StartTime);
-            _mediator.Sleep();
-        }
 
         string IDataErrorInfo.Error
         {
             get { return null; }
         }
 
-        string IDataErrorInfo.this[string columnName] {
+        string IDataErrorInfo.this[string columnName]
+        {
             get
             {
                 switch (columnName)
                 {
                     case "SnoozeDurationMins":
-                        if(SnoozeDurationMins < 0)
+                        if (SnoozeDurationMins < 0)
                             return "Snooze Duration must be positive";
                         if (SnoozeDurationMins >= MaxSnoozeDurationMins)
                             return "Snooze Duration cannot be larger than the Maximum Snooze Duration";
@@ -116,7 +102,7 @@ namespace TimeLogger.ViewModels
                     case "MaxSnoozeDurationMins":
                         if (MaxSnoozeDurationMins < 0)
                             return "Maximum Snooze Duration must be positive";
-                        if(SnoozeDurationMins >= MaxSnoozeDurationMins)
+                        if (SnoozeDurationMins >= MaxSnoozeDurationMins)
                             return "Maximum Snooze Duration cannot be less than the Maximum Snooze Duration";
                         return null;
                     case "SleepDurationMins":
@@ -130,7 +116,8 @@ namespace TimeLogger.ViewModels
                             return "Please enter a time";
                         return null;
                     case "TimeLoggingTickets":
-                        if (!String.IsNullOrEmpty(TimeLoggingTickets) && Regex.IsMatch(TimeLoggingTickets, @"^([a-zA-Z]+\-\d+\s*,?\s*)+$"))
+                        if (!String.IsNullOrEmpty(TimeLoggingTickets) &&
+                            Regex.IsMatch(TimeLoggingTickets, @"^([a-zA-Z]+\-\d+\s*,?\s*)+$"))
                             return null;
                         return
                             "Tickets should be in format: AAA-NNN where A is alphabetic characters " +
@@ -141,13 +128,25 @@ namespace TimeLogger.ViewModels
             }
         }
 
-        internal void Bind(Settings settingsModel)
+        private void BeginAction()
         {
-            _settings = settingsModel;
-            MaxSnoozeDurationMins = (int)settingsModel.MaxSnoozeLimit.TotalMinutes;
-            SleepDurationMins = (int) settingsModel.SleepDuration.TotalMinutes;
-            SnoozeDurationMins = (int) settingsModel.SnoozeDuration.TotalMinutes;
-            TimeLoggingTickets = settingsModel.TimeLoggingTickets;
+            if (IsValid() && _dataConfirmed != null)
+                _dataConfirmed.Invoke();
+        }
+
+        public void OnConfirm(Action action)
+        {
+            _dataConfirmed = action;
+        }
+
+        private bool IsValid()
+        {
+            return
+                String.IsNullOrEmpty(((IDataErrorInfo) this)["SnoozeDurationMins"]) &&
+                String.IsNullOrEmpty(((IDataErrorInfo) this)["MaxSnoozeDurationMins"]) &&
+                String.IsNullOrEmpty(((IDataErrorInfo) this)["SleepDurationMins"]) &&
+                String.IsNullOrEmpty(((IDataErrorInfo) this)["StartTime"]) &&
+                String.IsNullOrEmpty(((IDataErrorInfo) this)["TimeLoggingTickets"]);
         }
     }
 }

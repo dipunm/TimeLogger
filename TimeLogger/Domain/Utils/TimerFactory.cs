@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimeLogger.Core.Utils;
+﻿using TimeLogger.Core.Utils;
 
 namespace TimeLogger.Domain.Utils
 {
     public class TimerFactory : ITimerFactory
     {
+        private readonly IClock _clock;
+
+        public TimerFactory(IClock clock)
+        {
+            _clock = clock;
+        }
+
         public ITimer CreateTimer()
         {
-            return new Timer();
+            return new Timer(_clock);
+        }
+
+        public ITimeTracker CreateTimeTracker()
+        {
+            return new TimeTracker(_clock);
         }
     }
 }

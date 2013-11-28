@@ -1,58 +1,54 @@
-﻿using System;
-using System.Windows;
-using Microsoft.Win32;
-using TimeLogger.Domain;
+﻿using System.Windows;
+using TimeLogger.Domain.Data;
+using TimeLogger.Domain.OfficeManager;
 using TimeLogger.Domain.UI;
 using TimeLogger.Domain.Utils;
-using TimeLogger.Models;
-using TimeLogger.Services;
 using TimeLogger.ViewModels;
+using TimeLogger.Views.Modal;
 using TimeLogger.Windows;
 
 namespace TimeLogger
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {        
+    {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            // contains settings for the application to run
-            var settingsModel = new Settings()
-                {
-                    MaxSnoozeLimit = TimeSpan.FromMinutes(30),
-                    SleepDuration = TimeSpan.FromMinutes(60),
-                    SnoozeDuration = TimeSpan.FromMinutes(5),
-                    TimeLoggingTickets = "AD-34"
-                };
-            // manages the showing of the logger prompt window.
-            // provides an interface for managing both the window and viewModel together.
-            var promptManager = new PromptController(settingsModel);
-
-            // stores and retrieves all time logging data.
-            var logRepo = new RavenLogRepository(@"E:\TimeLogger\");
-
-            // provides a testable means of getting the current time.
+            //////////
+            // READY!
+            //////////
+            //utils
             var clock = new Clock();
+            var timerFactory = new TimerFactory(clock);
+            var userTracker = new WindowsUserTracker();
 
-            // manages the current day.
-            var dayTracker = new LogTracker(logRepo);
-            
-            // manages windows events to ensure the application can handle lock and sleep.
-            var activityTracker = new ActivityTracker(clock);
+            //repo
+            var storage = new RavenBasedWorkRepository(@"E:\TimeLogger\");
 
-            // attempts to orchestrate the whole application.
-            var mediator = new Mediator(settingsModel, promptManager, dayTracker, clock);
+            //////////
+            // SET!
+            //////////
+            //Sam!
+            var officeManager = new OfficeManager(timerFactory, clock, storage, userTracker);
 
-            var welcomeViewModel = new WelcomeViewModel(mediator, clock);
-            var loggerViewModel = new LoggerViewModel(mediator, logRepo, clock);
+            //UI
+            var consumer = new UIConsumer(
+                clock,
+                new WindowViewModelController<PromptViewModel>(
+                    new PromptWindow(), new PromptViewModel()),
+                new WindowViewModelController<WelcomeViewModel>(
+                    new WelcomeWindow(), new WelcomeViewModel(clock)),
+                new WindowViewModelController<LoggerViewModel>(
+                    new LoggerWindow(), new LoggerViewModel())
+                );
 
-            var welcomeWindow = new WelcomeWindow(welcomeViewModel);
-            var loggerWindow = new LoggerWindow(loggerViewModel);
+            //////////
+            // GO!
+            //////////
+            officeManager.ClockIn(consumer);
 
-            mediator.Initialise(welcomeWindow, loggerWindow);
-            mediator.ShowWelcomeScreen();
 
             //initialise tasktray
             //load welcome screen (allows entering start time and settings)

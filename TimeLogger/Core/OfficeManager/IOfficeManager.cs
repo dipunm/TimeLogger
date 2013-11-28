@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TimeLogger.Core.Data;
+using TimeLogger.Core.Utils;
 
 namespace TimeLogger.Core.OfficeManager
 {
@@ -9,5 +10,7 @@ namespace TimeLogger.Core.OfficeManager
         void ClockOut();
         void RemindMeInABit();
         void SubmitWork(IList<WorkLog> work);
+
+        ITimeTracker CreateTrackingSession();
     }
 }

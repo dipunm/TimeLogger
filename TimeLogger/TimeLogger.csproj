@@ -109,6 +109,8 @@
     </Compile>
     <Compile Include="Core\Data\IWorkRepository.cs" />
     <Compile Include="Core\OfficeManager\ITimeLoggingConsumer.cs" />
+    <Compile Include="Core\Utils\ITimeTracker.cs" />
+    <Compile Include="Domain\Utils\TimeTracker.cs" />
     <Compile Include="Domain\Data\RavenBasedWorkRepository.cs" />
     <Compile Include="Core\Data\WorkLog.cs" />
     <Compile Include="Domain\UI\WindowViewModelController.cs" />
@@ -128,7 +130,6 @@
     <Compile Include="Domain\Utils\Clock.cs" />
     <Compile Include="ViewModels\PromptViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\IJiraService.cs" />
     <Compile Include="Services\ITempoService.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\WorkEntryViewModel.cs" />

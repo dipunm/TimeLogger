@@ -3,69 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Input;
+using TimeLogger.Core.Data;
 using TimeLogger.MVVM;
-using TimeLogger.Models;
-using TimeLogger.Services;
 
 namespace TimeLogger.ViewModels
 {
     public class WorkEntryViewModel : ObservableObject, IDataErrorInfo
     {
+        private string _comment;
+        private bool _isBreak;
+        private int? _minutesWorked;
+        private string _ticketCodes;
+
         public WorkEntryViewModel()
         {
             SaveWorkLog = new DelegateCommand(SaveWorkLogAction);
         }
 
         public ICommand SaveWorkLog { get; private set; }
-        private void SaveWorkLogAction()
-        {
-            if (!String.IsNullOrEmpty(this["Comment"] + this["MinutesWorked"] + this["TicketCodes"]))
-            {
-                //error;
-                return;
-            }
-            
-            var ticketCodes = IsBreak ? null : TicketCodes.Split(' ').Select(c => c.Trim()).ToList();
 
-            //if (!ticketCodes.Any())
-            //{
-            //    //logging a break
-            //}
-
-            var work = new WorkLog()
-                {
-                    Comment = Comment,
-                    Date = _today.Date,
-// ReSharper disable PossibleInvalidOperationException
-// MinutesWorked should be validated by now.
-                    Minutes = MinutesWorked.Value,
-// ReSharper restore PossibleInvalidOperationException
-                    TicketCodes = ticketCodes
-                };
-    
-            if (WorklogSubmitted != null)
-                WorklogSubmitted(work);
-
-            ResetProperties();
-        }
-
-        public void ResetProperties(DateTime today)
-        {
-            _today = today;
-            ResetProperties();
-        }
-
-        private void ResetProperties()
-        {
-            Comment = null;
-            MinutesWorked = null;
-            TicketCodes = null;
-            IsBreak = false;
-        }
-
-        private string _ticketCodes;
         public string TicketCodes
         {
             get { return _ticketCodes; }
@@ -76,7 +33,6 @@ namespace TimeLogger.ViewModels
             }
         }
 
-        private string _comment;
         public string Comment
         {
             get { return _comment; }
@@ -87,10 +43,6 @@ namespace TimeLogger.ViewModels
             }
         }
 
-        private int? _minutesWorked;
-        private DateTime _today;
-        private bool _isBreak;
-        
         public int? MinutesWorked
         {
             get { return _minutesWorked; }
@@ -111,8 +63,6 @@ namespace TimeLogger.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public event Action<WorkLog> WorklogSubmitted;
 
         public string Error
         {
@@ -148,5 +98,46 @@ namespace TimeLogger.ViewModels
                 }
             }
         }
+
+        private void SaveWorkLogAction()
+        {
+            if (!String.IsNullOrEmpty(this["Comment"] + this["MinutesWorked"] + this["TicketCodes"]))
+            {
+                //error;
+                return;
+            }
+
+            List<string> ticketCodes = IsBreak ? null : TicketCodes.Split(' ').Select(c => c.Trim()).ToList();
+
+            //if (!ticketCodes.Any())
+            //{
+            //    //logging a break
+            //}
+
+            var work = new WorkLog
+                {
+                    Comment = Comment,
+// ReSharper disable PossibleInvalidOperationException
+// MinutesWorked should be validated by now.
+                    Minutes = MinutesWorked.Value,
+// ReSharper restore PossibleInvalidOperationException
+                    TicketCodes = ticketCodes
+                };
+
+            if (WorklogSubmitted != null)
+                WorklogSubmitted(work);
+
+            ResetProperties();
+        }
+
+        public void ResetProperties()
+        {
+            Comment = null;
+            MinutesWorked = null;
+            TicketCodes = null;
+            IsBreak = false;
+        }
+
+        public event Action<WorkLog> WorklogSubmitted;
     }
 }

@@ -6,16 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Prompt" Height="114.029" Width="393.238"
-        d:DataContext="{d:DesignInstance d:Type=vm:PromptViewModel}"
-        >
+        d:DataContext="{d:DesignInstance d:Type=vm:PromptViewModel}">
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
-                       VerticalAlignment="Top" FontSize="14pt" >
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"
+                       VerticalAlignment="Top" FontSize="14pt">
                 It is time to log your time again!
             </TextBlock>
         </StackPanel>
