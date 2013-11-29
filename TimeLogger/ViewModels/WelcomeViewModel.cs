@@ -23,8 +23,8 @@ namespace TimeLogger.ViewModels
             _clock = clock;
             Begin = new DelegateCommand(BeginAction);
             StartTime = clock.Now();
-            SnoozeDurationMins = 1;
-            SleepDurationMins = 1;
+            SnoozeDurationMins = 2;
+            SleepDurationMins = 60;
             MaxSnoozeDurationMins = 10;
             TimeLoggingTickets = "PAY-000";
         }

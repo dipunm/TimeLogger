@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TimeLogger.Core.Utils;
 using TimeLogger.Domain.Data;
 using TimeLogger.Domain.OfficeManager;
 using TimeLogger.Domain.UI;
@@ -6,6 +7,7 @@ using TimeLogger.Domain.Utils;
 using TimeLogger.Testing;
 using TimeLogger.Testing.TestObjects;
 using TimeLogger.ViewModels;
+using TimeLogger.Views.Other;
 using TimeLogger.Views.Windows;
 using TimeLogger.Windows;
 
@@ -24,9 +26,13 @@ namespace TimeLogger
             // READY!
             //////////
             //utils
-            var clock = new TestClock(); //new Clock();
-            var timerFactory = new TestTimerFactory(clock);//new TimerFactory(clock);
-            var userTracker = new WindowsUserTracker();
+            IClock clock = new Clock();
+            ITimerFactory timerFactory = new TimerFactory(clock);
+            IUserTracker userTracker = new WindowsUserTracker();
+
+            //test overrides
+            //clock = new TestClock();
+            //timerFactory = new TimerFactory(clock);
 
             //repo
             //var storage = new RavenBasedWorkRepository(@"E:\TimeLogger\");
@@ -57,8 +63,12 @@ namespace TimeLogger
             //////////
             // GO!
             //////////
-            officeManager.ClockIn(consumer);
-            
+            var taskTray = new MainTray();
+            var taskTrayViewModel = new TaskTrayViewModel(this, officeManager, consumer);
+            taskTray.DataContext = taskTrayViewModel;
+
+            // officeManager.ClockIn(consumer);
+
 
             //initialise tasktray
             //load welcome screen (allows entering start time and settings)

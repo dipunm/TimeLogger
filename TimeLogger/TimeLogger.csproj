@@ -160,8 +160,12 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ITempoService.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
+    <Compile Include="ViewModels\TaskTrayViewModel.cs" />
     <Compile Include="ViewModels\WorkEntryViewModel.cs" />
     <Compile Include="ViewModels\WorkLogStatsViewModel.cs" />
+    <Compile Include="Views\Other\MainTray.xaml.cs">
+      <DependentUpon>MainTray.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\PromptWindow.xaml.cs">
       <DependentUpon>PromptWindow.xaml</DependentUpon>
     </Compile>
@@ -191,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Testing\Views\TimerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Other\MainTray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,6 +253,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="timeicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
