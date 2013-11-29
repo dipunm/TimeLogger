@@ -10,6 +10,7 @@ namespace TimeLogger.Testing
         private bool _inProgress;
         private bool _shouldFire;
         private TimeSpan _duration;
+        private ICommand _elapsedCommand;
 
         public TimerViewModel()
         {
@@ -57,7 +58,16 @@ namespace TimeLogger.Testing
             Messages.Add(String.Format("{0} - {1}", message, now));
         }
 
-        public ICommand ElapsedCommand { get; set; }
+        public ICommand ElapsedCommand
+        {
+            get { return _elapsedCommand; }
+            set
+            {
+                if (Equals(value, _elapsedCommand)) return;
+                _elapsedCommand = value;
+                OnPropertyChanged();
+            }
+        }
 
         public void OnElapsed(Action action)
         {

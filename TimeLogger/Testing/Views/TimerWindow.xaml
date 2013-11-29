@@ -7,8 +7,19 @@
         xmlns:testing="clr-namespace:TimeLogger.Testing"
         d:DataContext="{d:DesignInstance Type=testing:TimerViewModel}"
         mc:Ignorable="d"
-        Title="TimerWindow" Height="250.746" Width="611.94">
+        Title="TimerWindow" Height="301.492" Width="611.94">
     <Grid>
-        <ListView ItemsSource="{Binding Messages}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding Messages}" />
+        <Button Grid.Row="1" Command="{Binding ElapsedCommand}">Execute!</Button>
+        <StackPanel Grid.Row="2">
+            <TextBox Text="{Binding Duration}"></TextBox>
+            <CheckBox IsChecked="{Binding ShouldFire}">ShouldFire</CheckBox>
+            <CheckBox IsChecked="{Binding InProgress}">InProgress</CheckBox>
+        </StackPanel>
     </Grid>
 </Window>

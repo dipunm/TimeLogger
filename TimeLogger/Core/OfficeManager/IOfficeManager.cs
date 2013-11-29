@@ -10,6 +10,7 @@ namespace TimeLogger.Core.OfficeManager
         void ClockOut();
         void RemindMeInABit();
         void SubmitWork(IList<WorkLog> work);
+        void ForceLoggingTime();
 
         ITimeTracker CreateTrackingSession();
     }

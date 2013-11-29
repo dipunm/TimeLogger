@@ -38,6 +38,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net45\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
@@ -139,10 +142,14 @@
     <Compile Include="Core\Utils\IClock.cs" />
     <Compile Include="Domain\Utils\Clock.cs" />
     <Compile Include="Testing\TestObjects\TestTimerFactory.cs" />
+    <Compile Include="Testing\ViewModels\ClockLogViewModel.cs" />
     <Compile Include="Testing\ViewModels\ClockViewModel.cs" />
     <Compile Include="Testing\TestObjects\TestClock.cs" />
     <Compile Include="Testing\TestObjects\TestTimer.cs" />
     <Compile Include="Testing\ViewModels\TimerViewModel.cs" />
+    <Compile Include="Testing\Views\ClockLogWindow.xaml.cs">
+      <DependentUpon>ClockLogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Testing\Views\ClockWindow.xaml.cs">
       <DependentUpon>ClockWindow.xaml</DependentUpon>
     </Compile>
@@ -175,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Testing\Views\ClockLogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Testing\Views\ClockWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

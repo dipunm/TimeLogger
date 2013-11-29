@@ -16,6 +16,7 @@ namespace TimeLogger.Testing
         {
             _viewModel = new TimerViewModel();
             _window = new TimerWindow();
+            _window.DataContext = _viewModel;
             _window.Show();
             _viewModel.OnElapsed(() => { if (Elapsed != null) Elapsed.Invoke(this); });
         }

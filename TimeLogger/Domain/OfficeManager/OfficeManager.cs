@@ -99,9 +99,18 @@ namespace TimeLogger.Domain.OfficeManager
                     _snoozeAllowanceTimer.Duration = sleepableDuration;
                     _snoozeAllowanceTimer.Start();
                 }
+                else
+                {
+                    _consumer.SetSnoozeEnabled(false);
+                }
 
                 Sleep();
             }
+        }
+
+        public void ForceLoggingTime()
+        {
+            StartLoggingTime();
         }
 
         public ITimeTracker CreateTrackingSession()
@@ -136,10 +145,23 @@ namespace TimeLogger.Domain.OfficeManager
 
         private void RequestWorkLogs(ITimer sender)
         {
+            StartLoggingTime();
+        }
+
+        private void StartLoggingTime()
+        {
             if (_consumer != null)
             {
+                _workLogTimer.Reset();
                 TimeSpan timeToLog = GetTimeToLog();
-                _consumer.LogTime(this, timeToLog);
+                if (timeToLog >= TimeSpan.Zero)
+                {
+                    _consumer.LogTime(this, timeToLog);
+                }
+                else
+                {
+                    Sleep();
+                }
             }
         }
 
@@ -173,7 +195,7 @@ namespace TimeLogger.Domain.OfficeManager
         private TimeSpan GetSleepableDuration()
         {
             TimeSpan timeToLog = GetTimeToLog();
-            TimeSpan sleepableTime = _timings.SnoozeLimit - timeToLog;
+            TimeSpan sleepableTime = _timings.SnoozeLimit + _timings.SleepAmount - timeToLog;
             return sleepableTime;
         }
 

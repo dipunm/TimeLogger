@@ -7,9 +7,18 @@
         xmlns:testing="clr-namespace:TimeLogger.Testing"
         d:DataContext="{d:DesignInstance Type=testing:ClockViewModel}"
         mc:Ignorable="d"
-        Title="ClockWindow" Height="99.358" Width="408.806">
+        Title="ClockWindow" Height="592.358" Width="1239.806">
     <Grid VerticalAlignment="Stretch">
-        <xctk:DateTimePicker VerticalAlignment="Top"  Value="{Binding Date, Mode=TwoWay}"></xctk:DateTimePicker>
-        <Button Click="CloseAction" VerticalAlignment="Bottom">Return</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox Text="{Binding Description}" />
+        <xctk:TimePicker Grid.Row="1" Value="{Binding Date, Mode=TwoWay}"
+                         Format="Custom" FormatString="hh:mm:ss" />
+        <TextBlock Grid.Row="2" Text="{Binding CallStack}" />
+        <Button Click="CloseAction" Grid.Row="3">Return</Button>
     </Grid>
 </Window>
