@@ -36,7 +36,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value == _snoozeDurationMins) return;
                 _snoozeDurationMins = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SnoozeDurationMins");
             }
         }
 
@@ -47,7 +47,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value == _sleepDurationMins) return;
                 _sleepDurationMins = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SleepDurationMins");
             }
         }
 
@@ -58,7 +58,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value == _maxSnoozeDurationMins) return;
                 _maxSnoozeDurationMins = value;
-                OnPropertyChanged();
+                OnPropertyChanged("MaxSnoozeDurationMins");
             }
         }
 
@@ -69,7 +69,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value.Equals(_startTime)) return;
                 _startTime = value;
-                OnPropertyChanged();
+                OnPropertyChanged("StartTime");
             }
         }
 
@@ -80,7 +80,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value == _timeLoggingTickets) return;
                 _timeLoggingTickets = value;
-                OnPropertyChanged();
+                OnPropertyChanged("TimeLoggingTickets");
             }
         }
 

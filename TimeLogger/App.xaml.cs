@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TimeLogger.Core.Utils;
 using TimeLogger.Domain.Data;
 using TimeLogger.Domain.OfficeManager;
@@ -48,15 +49,15 @@ namespace TimeLogger
             var consumer = new UIConsumer(clock,
                 
                 new DialogController<PromptViewModel>(
-                    () => Dispatcher.Invoke(() => new PromptWindow()), 
+                    () => (Window) Dispatcher.Invoke(new Action(() => new PromptWindow())), 
                     new PromptViewModel()),
                 
                 new DialogController<WelcomeViewModel>(
-                    () => Dispatcher.Invoke(() => new WelcomeWindow()), 
+                    () => (Window) Dispatcher.Invoke(new Func<WelcomeWindow>(() => new WelcomeWindow())), 
                     new WelcomeViewModel(clock)),
                 
                 new DialogController<LoggerViewModel>(
-                    () => Dispatcher.Invoke(() => new LoggerWindow()), 
+                    () => (Window) Dispatcher.Invoke(new Func<LoggerWindow>(() => new LoggerWindow())), 
                     new LoggerViewModel())
             );
 

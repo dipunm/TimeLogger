@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace TimeLogger.Domain.UI
 {
@@ -19,12 +20,12 @@ namespace TimeLogger.Domain.UI
         
         public void HideWindow()
         {
-            Window.Dispatcher.Invoke(() => Window.Hide());
+            Window.Dispatcher.Invoke(new Action(() => Window.Hide()));
         }
 
         public void ShowWindow()
         {
-            Window.Dispatcher.Invoke(() => Window.Show());
+            Window.Dispatcher.Invoke(new Action(() => Window.Show()));
         }
     }
 }

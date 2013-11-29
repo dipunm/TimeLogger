@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TimeLogger.MVVM;
 
 namespace TimeLogger.Domain.UI
@@ -22,7 +23,7 @@ namespace TimeLogger.Domain.UI
             if(element is IViewModelHandler<TViewModel>)
                 ApplyViewModel((IViewModelHandler<TViewModel>)element);
             else
-                element.Dispatcher.Invoke(() => element.DataContext = ViewModel);
+                element.Dispatcher.Invoke(new Action(() => element.DataContext = ViewModel));
         }
 
         protected void ApplyViewModel(IViewModelHandler<TViewModel> element)

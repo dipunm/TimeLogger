@@ -12,23 +12,23 @@ namespace TimeLogger.Domain.UI
     public class UIConsumer : ITimeLoggingConsumer
     {
         private readonly IClock _clock;
-        private readonly DialogController<LoggerViewModel> _loggerView;
-        private readonly DialogController<PromptViewModel> _promptView;
-        private readonly DialogController<WelcomeViewModel> _welcomeView;
+        private readonly DialogController<LoggerViewModel> _loggerController;
+        private readonly DialogController<PromptViewModel> _promptController;
+        private readonly DialogController<WelcomeViewModel> _welcomeController;
         private DateTime? _startTime;
         private List<string> _timeLoggingTicketCodes;
         private Timings _timings;
 
         public UIConsumer(IClock clock,
-                          DialogController<PromptViewModel> promptView,
-                          DialogController<WelcomeViewModel> welcomeView,
-                          DialogController<LoggerViewModel> loggerView
+                          DialogController<PromptViewModel> promptController,
+                          DialogController<WelcomeViewModel> welcomeController,
+                          DialogController<LoggerViewModel> loggerController
             )
         {
             _clock = clock;
-            _promptView = promptView;
-            _welcomeView = welcomeView;
-            _loggerView = loggerView;
+            _promptController = promptController;
+            _welcomeController = welcomeController;
+            _loggerController = loggerController;
         }
 
         public Timings GetTimings()
@@ -66,7 +66,7 @@ namespace TimeLogger.Domain.UI
             {
                 ITimeTracker session = officeManager.CreateTrackingSession();
                 session.Start();
-                result = _promptView.ShowDialog();
+                result = _promptController.ShowDialog();
                 elapsedTime = session.Stop();
             }
 
@@ -82,7 +82,7 @@ namespace TimeLogger.Domain.UI
 
         public void SetSnoozeEnabled(bool enabled)
         {
-            _promptView.ViewModel.CanSnooze = enabled;
+            _promptController.ViewModel.CanSnooze = enabled;
         }
 
         public DateTime GetEndTime()
@@ -102,10 +102,10 @@ namespace TimeLogger.Domain.UI
             bool? result = null;
             while (!result.HasValue || result == false)
             {
-                result = _welcomeView.ShowDialog();
+                result = _welcomeController.ShowDialog();
             }
 
-            WelcomeViewModel viewModel = _welcomeView.ViewModel;
+            WelcomeViewModel viewModel = _welcomeController.ViewModel;
             _startTime = viewModel.StartTime;
             _timings = new Timings
             {
@@ -123,7 +123,7 @@ namespace TimeLogger.Domain.UI
         {
             ITimeTracker session = officeManager.CreateTrackingSession();
             session.Start();
-            _loggerView.ViewModel.SetCompleteAction(work =>
+            _loggerController.ViewModel.SetCompleteAction(work =>
                 {
                     TimeSpan timeSpent = session.Stop();
                     work.Add(new WorkLog
@@ -135,12 +135,12 @@ namespace TimeLogger.Domain.UI
 
                     officeManager.SubmitWork(work);
                 });
-            _loggerView.ViewModel.Reset((int)Math.Ceiling(timeToLog.TotalMinutes));
+            _loggerController.ViewModel.Reset((int)Math.Ceiling(timeToLog.TotalMinutes));
 
             bool? result = null;
             while (result != true)
             {
-                result = _loggerView.ShowDialog();
+                result = _loggerController.ShowDialog();
             }
         }
     }

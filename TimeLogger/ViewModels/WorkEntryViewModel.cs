@@ -29,7 +29,7 @@ namespace TimeLogger.ViewModels
             set
             {
                 _ticketCodes = value;
-                OnPropertyChanged();
+                OnPropertyChanged("TicketCodes");
             }
         }
 
@@ -39,7 +39,7 @@ namespace TimeLogger.ViewModels
             set
             {
                 _comment = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Comment");
             }
         }
 
@@ -49,7 +49,7 @@ namespace TimeLogger.ViewModels
             set
             {
                 _minutesWorked = value;
-                OnPropertyChanged();
+                OnPropertyChanged("MinutesWorked");
             }
         }
 
@@ -60,7 +60,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value.Equals(_isBreak)) return;
                 _isBreak = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsBreak");
             }
         }
 

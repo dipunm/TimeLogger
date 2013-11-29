@@ -24,7 +24,7 @@ namespace TimeLogger.Testing
             {
                 if (value.Equals(_inProgress)) return;
                 _inProgress = value;
-                OnPropertyChanged();
+                OnPropertyChanged("InProgress");
             }
         }
 
@@ -35,7 +35,7 @@ namespace TimeLogger.Testing
             {
                 if (value.Equals(_shouldFire)) return;
                 _shouldFire = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ShouldFire");
             }
         }
 
@@ -46,8 +46,7 @@ namespace TimeLogger.Testing
             {
                 if (value.Equals(_duration)) return;
                 _duration = value;
-                OnPropertyChanged();
-                OnPropertyChanged();
+                OnPropertyChanged("Duration");
             }
         }
 
@@ -65,7 +64,7 @@ namespace TimeLogger.Testing
             {
                 if (Equals(value, _elapsedCommand)) return;
                 _elapsedCommand = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ElapsedCommand");
             }
         }
 

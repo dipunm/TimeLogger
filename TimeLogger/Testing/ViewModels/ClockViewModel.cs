@@ -16,7 +16,7 @@ namespace TimeLogger.Testing
             {
                 if (value.Equals(_date)) return;
                 _date = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Date");
             }
         }
 
@@ -27,7 +27,7 @@ namespace TimeLogger.Testing
             {
                 if (value == _callStack) return;
                 _callStack = value;
-                OnPropertyChanged();
+                OnPropertyChanged("CallStack");
             }
         }
 
@@ -38,7 +38,7 @@ namespace TimeLogger.Testing
             {
                 if (value == _description) return;
                 _description = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Description");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TimeLogger.MVVM;
 using TimeLogger.ViewModels;
 
@@ -16,20 +17,20 @@ namespace TimeLogger.Windows
 
         public void SetViewModel(LoggerViewModel model)
         {
-            Dispatcher.Invoke(() =>
-            {
-                DataContext = model;
-            });
+            Dispatcher.Invoke(new Action(() =>
+                {
+                    DataContext = model;
+                }));
             model.SetFinishedAction(Finished);
         }
 
         private void Finished()
         {
-            Dispatcher.Invoke(() =>
-            {
-                DialogResult = true;
-                Hide();
-            });
+            Dispatcher.Invoke(new Action(() =>
+                {
+                    DialogResult = true;
+                    Hide();
+                }));
         }
     }
 }

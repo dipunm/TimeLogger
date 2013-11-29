@@ -17,9 +17,8 @@ namespace TimeLogger.Domain.UI
             var window = _createWindow();
             ApplyViewModel(window);
             bool? returnCode = null;
-            window.Dispatcher.Invoke(() => returnCode = window.ShowDialog());
+            window.Dispatcher.Invoke(new Action(() => returnCode = window.ShowDialog()));
             return returnCode;
-
         }
     }
 }

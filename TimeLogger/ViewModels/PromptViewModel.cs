@@ -14,7 +14,7 @@ namespace TimeLogger.ViewModels
             {
                 if (value.Equals(_canSnooze)) return;
                 _canSnooze = value;
-                OnPropertyChanged();
+                OnPropertyChanged("CanSnooze");
             }
         }
     }

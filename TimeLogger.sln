@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger", "TimeLogger\TimeLogger.csproj", "{A74FD04E-ED5D-4F42-844C-11315DB10CEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Tests.Unit", "TimeLogger.Tests.Unit\TimeLogger.Tests.Unit.csproj", "{409AD205-8187-489F-AE08-D6E8A399B8AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{409AD205-8187-489F-AE08-D6E8A399B8AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409AD205-8187-489F-AE08-D6E8A399B8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409AD205-8187-489F-AE08-D6E8A399B8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409AD205-8187-489F-AE08-D6E8A399B8AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
