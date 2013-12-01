@@ -43,6 +43,12 @@ namespace TimeLogger.Domain.Utils
             _inProgress = false;
         }
 
+        public void FireAndReset()
+        {
+            this.Reset();
+            this.Elapsed.BeginInvoke(this, null, null);
+        }
+
         public void HoldEventFire()
         {
             if (InProgress())

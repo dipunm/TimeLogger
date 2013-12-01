@@ -132,6 +132,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\Data\IWebManageable.cs" />
     <Compile Include="Core\Data\IWorkRepository.cs" />
     <Compile Include="Core\OfficeManager\ITimeLoggingConsumer.cs" />
     <Compile Include="Core\Utils\ITimeTracker.cs" />

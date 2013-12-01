@@ -12,6 +12,7 @@ namespace TimeLogger.Domain.UI
     public class UIConsumer : ITimeLoggingConsumer
     {
         private readonly IClock _clock;
+        private readonly ITimerFactory _timerFactory;
         private readonly DialogController<LoggerViewModel> _loggerController;
         private readonly DialogController<PromptViewModel> _promptController;
         private readonly DialogController<WelcomeViewModel> _welcomeController;
@@ -19,13 +20,14 @@ namespace TimeLogger.Domain.UI
         private List<string> _timeLoggingTicketCodes;
         private Timings _timings;
 
-        public UIConsumer(IClock clock,
+        public UIConsumer(IClock clock, ITimerFactory timerFactory,
                           DialogController<PromptViewModel> promptController,
                           DialogController<WelcomeViewModel> welcomeController,
                           DialogController<LoggerViewModel> loggerController
             )
         {
             _clock = clock;
+            _timerFactory = timerFactory;
             _promptController = promptController;
             _welcomeController = welcomeController;
             _loggerController = loggerController;
@@ -64,13 +66,13 @@ namespace TimeLogger.Domain.UI
             }
             else
             {
-                ITimeTracker session = officeManager.CreateTrackingSession();
+                ITimeTracker session = _timerFactory.CreateTimeTracker();
                 session.Start();
                 result = _promptController.ShowDialog();
                 elapsedTime = session.Stop();
             }
 
-            if (result == null || result == false)
+            if ((result == null || result == false) && _promptController.ViewModel.CanSnooze)
             {
                 officeManager.RemindMeInABit();
             }
@@ -121,7 +123,7 @@ namespace TimeLogger.Domain.UI
 
         private void ShowLogger(IOfficeManager officeManager, TimeSpan timeToLog)
         {
-            ITimeTracker session = officeManager.CreateTrackingSession();
+            ITimeTracker session = _timerFactory.CreateTimeTracker();
             session.Start();
             _loggerController.ViewModel.SetCompleteAction(work =>
                 {

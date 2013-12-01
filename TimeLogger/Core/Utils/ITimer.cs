@@ -12,6 +12,7 @@ namespace TimeLogger.Core.Utils
         bool InProgress();
         void Start();
         void Reset();
+        void FireAndReset();
 
         void HoldEventFire();
         void FirePendingEvent();

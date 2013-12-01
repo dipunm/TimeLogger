@@ -45,6 +45,12 @@ namespace TimeLogger.Testing
             _viewModel.AddMessage("Reset", DateTime.Now);
         }
 
+        public void FireAndReset()
+        {
+            _viewModel.InProgress = false;
+            _viewModel.AddMessage("FiredAndResetImmediately", DateTime.Now);
+        }
+
         public void HoldEventFire()
         {
             _viewModel.AddMessage("HeldEventFire", DateTime.Now);

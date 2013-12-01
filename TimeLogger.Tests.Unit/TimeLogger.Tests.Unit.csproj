@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="OfficeManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimerFactoryTests.cs" />
     <Compile Include="UIConsumerTests.cs" />
   </ItemGroup>
   <ItemGroup>

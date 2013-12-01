@@ -11,7 +11,5 @@ namespace TimeLogger.Core.OfficeManager
         void RemindMeInABit();
         void SubmitWork(IList<WorkLog> work);
         void ForceLoggingTime();
-
-        ITimeTracker CreateTrackingSession();
     }
 }

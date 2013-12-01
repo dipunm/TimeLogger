@@ -14,29 +14,23 @@ namespace TimeLogger.Tests.Unit
     [TestFixture]
     public class UIConsumerTests
     {
-        private Mock<ITimerFactory> _timerFactory;
-        private Mock<IClock> _clock;
-        private Mock<IWorkRepository> _storage;
-        private Mock<IUserTracker> _tracker;
-        private OfficeManager _officeManager;
-        private Mock<ITimeLoggingConsumer> _consumer;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _timerFactory = new Mock<ITimerFactory>();
-            _clock = new Mock<IClock>();
-            _storage = new Mock<IWorkRepository>();
-            _tracker = new Mock<IUserTracker>();
-            _consumer = new Mock<ITimeLoggingConsumer>();
-            _officeManager = new OfficeManager(_timerFactory.Object, _clock.Object, _storage.Object, _tracker.Object);
-        }
-
-        [Test]
-        public void ClockIn_AlreadyClockedIn_()
-        {
-            _officeManager.ClockIn(_consumer.Object);
-            _officeManager.ClockIn(_consumer.Object);
-        }
+        public void GetTimings_NotYetSet_LaunchesWelcomeWindow()
+        public void GetTimings_WelcomeWindowReturnedFalse_ReLaunchWelcomeWindow()
+        public void GetTimings_AlreadySet_WelcomeWindowNotLaunched()
+        public void GetStartTime_NotYetSet_LaunchesWelcomeWindow()
+        public void GetStartTime_WelcomeWindowReturnedFalse_ReLaunchWelcomeWindow()
+        public void GetStartTime_AlreadySet_WelcomeWindowNotLaunched()
+        public void LogTime_EndTimeHasBeenSet_NoPromptWindow()
+        public void LogTime_StartTimeSet_PromptWindow()
+        public void LogTime_PromptReturnsFalse_OfficeManagerAskedToRemindMeInABit()
+        public void LogTime_PromptReturnsFalseButSnoozeDisabled_OfficeManagerNotAskedToRemindMeInABit()
+        public void LogTime_WorkShouldBeLogged_SetCompleteActionCalled()
+        public void LogTime_WorkShouldBeLogged_TimeTakenToRespondIsAddedToTimeToLog()
+        public void LogTime_WorkShouldBeLogged_ResetCalledWithRoundedMinutesValue()
+        public void LogTime_LoggerCompleted_OfficeManagerGivenWorkToLog()
+        public void LogTime_LoggerCompleted_ExtraMinutesLoggedWithTimeLoggingTicket()
+        public void GetEndTime_ReturnsNow()
+        public void GetEndTime_ResetsStartTime()
+        public void GetEndTime_NowThrowsException_ResetsStartTime()
     }
 }
