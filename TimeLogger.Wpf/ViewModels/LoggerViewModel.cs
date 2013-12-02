@@ -28,10 +28,10 @@ namespace TimeLogger.ViewModels
             Stats.NumberOfMinutesLogged += workLog.Minutes;
             if (Stats.PercentageComplete >= 1)
             {
-                _submitWorkAction.Invoke(_loggedWork);
-                _loggedWork.Clear();
-                if(Finished != null)
+                if (Finished != null)
                     Finished.Invoke();
+                _submitWorkAction.BeginInvoke(new List<WorkLog>(_loggedWork), null, null);
+                _loggedWork.Clear();
             }
         }
 

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Raven.Abstractions.Indexing;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Client.Indexes;
+using Raven.Database.Server;
 using TimeLogger.Core.Data;
 
 namespace TimeLogger.Domain.Data
@@ -14,7 +17,7 @@ namespace TimeLogger.Domain.Data
         protected RavenBasedWorkRepository(EmbeddableDocumentStore dataStore)
         {
             _documentStore = dataStore;
-            _documentStore.Initialize();
+            _documentStore.UseEmbeddedHttpServer = true;
         }
 
         public RavenBasedWorkRepository(string path) 
@@ -33,6 +36,19 @@ namespace TimeLogger.Domain.Data
         {
         }
         
+        public void Initialise()
+        {
+            _documentStore.Initialize();
+            if (!_documentStore.DatabaseCommands.GetIndexNames(0, 3).Contains("WorkLogs/ByDate"))
+            {
+                _documentStore.DatabaseCommands.PutIndex("WorkLogs/ByDate", new IndexDefinitionBuilder<WorkLog, DateTime>()
+                    {
+                        Map = logs => from log in logs
+                                      select new { log.Date }
+                    });
+            }
+        }
+
         public void AddLog(WorkLog log)
         {
             using (IDocumentSession session = _documentStore.OpenSession())
@@ -46,8 +62,9 @@ namespace TimeLogger.Domain.Data
         {
             using (IDocumentSession session = _documentStore.OpenSession())
             {
-                return session.Query<WorkLog>()
-                              .Where(l => l.Date.Date == date.Date)
+                return session.Query<WorkLog>("WorkLogs/ByDate")
+                              .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)))
+                              .Where(l => l.Date == date)
                               .ToList();
             }
         }
@@ -59,6 +76,11 @@ namespace TimeLogger.Domain.Data
                 session.Delete(log);
                 session.SaveChanges();
             }
+        }
+
+        public Uri GetManagerUrl()
+        {
+            return new Uri(_documentStore.Configuration.ServerUrl);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace TimeLogger.ViewModels
             _app = app;
             _officeManager = officeManager;
             _consumer = consumer;
-            MenuItems = new List<MenuItem>()
+            MenuItems = new ObservableCollection<MenuItem>()
                 {
                     new MenuItem()
                     {
@@ -48,6 +49,15 @@ namespace TimeLogger.ViewModels
                 };
         }
 
-        public List<MenuItem> MenuItems { get; set; }
+        public ObservableCollection<MenuItem> MenuItems { get; set; }
+
+        public void AddHttpItem(string name, Uri url)
+        {
+            MenuItems.Add(new MenuItem()
+                {
+                    Header = name,
+                    Command = new DelegateCommand(() => Process.Start(url.AbsoluteUri))
+                });
+        }
     }
 }

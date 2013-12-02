@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TimeLogger.Core.Data
+namespace TimeLogger.Data
 {
-    public interface IWebManageable
+    public class Class1
     {
-        Uri GetManagerUrl();
     }
 }
