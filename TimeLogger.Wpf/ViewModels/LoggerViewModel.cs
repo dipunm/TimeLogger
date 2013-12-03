@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TimeLogger.Core.Data;
-using TimeLogger.Core.Utils;
-using TimeLogger.MVVM;
+using MVVM.Extensions;
+using TimeLogger.Data.Core;
 
-namespace TimeLogger.ViewModels
+namespace TimeLogger.Wpf.ViewModels
 {
     public class LoggerViewModel : ObservableObject
     {

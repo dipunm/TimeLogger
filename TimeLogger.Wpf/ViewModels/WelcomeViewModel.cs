@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using TimeLogger.Core.Utils;
-using TimeLogger.MVVM;
+using MVVM.Extensions;
+using TimeLogger.Utils.Core;
 
-namespace TimeLogger.ViewModels
+namespace TimeLogger.Wpf.ViewModels
 {
     public class WelcomeViewModel : ObservableObject, IDataErrorInfo
     {

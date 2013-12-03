@@ -39,8 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Core\IOfficeManager.cs" />
+    <Compile Include="Core\ITimeLoggingConsumer.cs" />
+    <Compile Include="Core\Timings.cs" />
+    <Compile Include="Domain\OfficeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Data.csproj">
+      <Project>{9B598165-A26D-42CB-AF08-015C757D3036}</Project>
+      <Name>TimeLogger.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Utils\TimeLogger.Utils.csproj">
+      <Project>{C22020CD-3294-4710-8159-8E9494D5361F}</Project>
+      <Name>TimeLogger.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

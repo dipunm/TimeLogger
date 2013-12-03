@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TimeLogger.Views.Windows
+namespace TimeLogger.Wpf.Views.Windows
 {
     /// <summary>
     ///     Interaction logic for Prompt.xaml

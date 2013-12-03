@@ -1,6 +1,6 @@
-﻿using TimeLogger.MVVM;
+﻿using MVVM.Extensions;
 
-namespace TimeLogger.ViewModels
+namespace TimeLogger.Wpf.ViewModels
 {
     public class WorkLogStatsViewModel : ObservableObject
     {

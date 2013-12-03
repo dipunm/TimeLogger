@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using Fclp;
-using TimeLogger.Core.Utils;
-using TimeLogger.Domain.Data;
-using TimeLogger.Domain.OfficeManager;
-using TimeLogger.Domain.UI;
-using TimeLogger.Domain.Utils;
-using TimeLogger.Testing;
-using TimeLogger.Testing.TestObjects;
-using TimeLogger.ViewModels;
-using TimeLogger.Views.Other;
-using TimeLogger.Views.Windows;
-using TimeLogger.Windows;
+using TimeLogger.Data.Domain;
+using TimeLogger.Debugging.TestObjects;
+using TimeLogger.Lifecycle.Domain;
+using TimeLogger.Utils.Core;
+using TimeLogger.Utils.Domain;
+using TimeLogger.Wpf.Domain;
+using TimeLogger.Wpf.Domain.Controllers;
+using TimeLogger.Wpf.ViewModels;
+using TimeLogger.Wpf.Views.Other;
+using TimeLogger.Wpf.Views.Windows;
 
-namespace TimeLogger
+namespace TimeLogger.Wpf
 {
     /// <summary>
     ///     Interaction logic for App.xaml
@@ -102,7 +100,7 @@ namespace TimeLogger
                   .WithDescription(
                       "Runs the application in memory mode where the database does not persist to file. All data is lost when the application is closed.");
 
-            var earlyClose = true;
+            //var earlyClose = true;
             //parser.SetupHelp("?", "help")
             //      .Callback(message =>
             //          {
@@ -114,7 +112,9 @@ namespace TimeLogger
             parser.IsCaseSensitive = false;
 
             parser.Parse(args);
-            return earlyClose;
+
+            //return earlyClose;
+            return true;
         }
     }
 }

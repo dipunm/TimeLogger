@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TimeLogger.App</StartupObject>
+    <StartupObject>TimeLogger.Wpf.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -46,40 +46,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net40\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
-      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.2.0.6.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Raven.Abstractions, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.5.2750\lib\net40\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Embedded, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Embedded.2.5.2750\lib\net40\Raven.Client.Embedded.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.5.2750\lib\net40\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Database.2.5.2750\lib\net40\Raven.Database.dll</HintPath>
-    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -88,10 +55,6 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
-    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -135,50 +98,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Data\IWorkRepository.cs" />
-    <Compile Include="Core\OfficeManager\ITimeLoggingConsumer.cs" />
-    <Compile Include="Core\Tempo\ITempoProxy.cs" />
-    <Compile Include="Core\Tempo\RestApi.cs" />
-    <Compile Include="Core\Utils\ITimeTracker.cs" />
-    <Compile Include="Domain\UI\DialogController.cs" />
-    <Compile Include="Domain\UI\ViewController.cs" />
-    <Compile Include="Domain\Utils\TimeTracker.cs" />
-    <Compile Include="Domain\Data\RavenBasedWorkRepository.cs" />
-    <Compile Include="Core\Data\WorkLog.cs" />
-    <Compile Include="Domain\UI\WindowController.cs" />
-    <Compile Include="Domain\Utils\Timer.cs" />
-    <Compile Include="Domain\Utils\TimerFactory.cs" />
-    <Compile Include="Domain\Utils\WindowsUserTracker.cs" />
-    <Compile Include="Core\Utils\IUserTracker.cs" />
-    <Compile Include="Core\OfficeManager\IOfficeManager.cs" />
-    <Compile Include="Core\Utils\ITimer.cs" />
-    <Compile Include="Core\Utils\ITimerFactory.cs" />
-    <Compile Include="Domain\OfficeManager\OfficeManager.cs" />
-    <Compile Include="Domain\UI\UIConsumer.cs" />
-    <Compile Include="Core\OfficeManager\Timings.cs" />
-    <Compile Include="MVVM\DelegateCommand.cs" />
-    <Compile Include="MVVM\IViewModelHandler.cs" />
-    <Compile Include="MVVM\ObservableObject.cs" />
-    <Compile Include="Core\Utils\IClock.cs" />
-    <Compile Include="Domain\Utils\Clock.cs" />
-    <Compile Include="Testing\TestObjects\TestTimerFactory.cs" />
-    <Compile Include="Testing\ViewModels\ClockLogViewModel.cs" />
-    <Compile Include="Testing\ViewModels\ClockViewModel.cs" />
-    <Compile Include="Testing\TestObjects\TestClock.cs" />
-    <Compile Include="Testing\TestObjects\TestTimer.cs" />
-    <Compile Include="Testing\ViewModels\TimerViewModel.cs" />
-    <Compile Include="Testing\Views\ClockLogWindow.xaml.cs">
-      <DependentUpon>ClockLogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Testing\Views\ClockWindow.xaml.cs">
-      <DependentUpon>ClockWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Testing\Views\TimerWindow.xaml.cs">
-      <DependentUpon>TimerWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Domain\Controllers\DialogController.cs" />
+    <Compile Include="Domain\Controllers\ViewController.cs" />
+    <Compile Include="Domain\Controllers\WindowController.cs" />
+    <Compile Include="Domain\UIConsumer.cs" />
     <Compile Include="ViewModels\PromptViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\ITempoService.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\TaskTrayViewModel.cs" />
     <Compile Include="ViewModels\WorkEntryViewModel.cs" />
@@ -206,18 +130,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Testing\Views\ClockLogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Testing\Views\ClockWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Testing\Views\TimerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Other\MainTray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,7 +183,28 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MVVM.Extensions\MVVM.Extensions.csproj">
+      <Project>{E179B18A-8282-4788-8C80-6554DB03E14A}</Project>
+      <Name>MVVM.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Data.csproj">
+      <Project>{9B598165-A26D-42CB-AF08-015C757D3036}</Project>
+      <Name>TimeLogger.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Debugging\TimeLogger.Debugging.csproj">
+      <Project>{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}</Project>
+      <Name>TimeLogger.Debugging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Lifecycle\TimeLogger.Lifecycle.csproj">
+      <Project>{3BBC2E24-B8EB-4657-A528-BED27FF024AB}</Project>
+      <Name>TimeLogger.Lifecycle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Utils\TimeLogger.Utils.csproj">
+      <Project>{C22020CD-3294-4710-8159-8E9494D5361F}</Project>
+      <Name>TimeLogger.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="timeicon.ico" />
   </ItemGroup>

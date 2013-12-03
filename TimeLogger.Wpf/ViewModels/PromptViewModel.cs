@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Input;
-using TimeLogger.MVVM;
+﻿using MVVM.Extensions;
 
-namespace TimeLogger.ViewModels
+namespace TimeLogger.Wpf.ViewModels
 {
     public class PromptViewModel : ObservableObject
     {

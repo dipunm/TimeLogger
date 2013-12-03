@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TimeLogger.Views.UserControls
+namespace TimeLogger.Wpf.Views.UserControls
 {
     /// <summary>
     ///     Interaction logic for Statistics.xaml

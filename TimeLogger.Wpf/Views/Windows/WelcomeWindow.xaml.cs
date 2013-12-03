@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
-using TimeLogger.MVVM;
-using TimeLogger.ViewModels;
+using MVVM.Extensions;
+using TimeLogger.Wpf.ViewModels;
 
-namespace TimeLogger.Windows
+namespace TimeLogger.Wpf.Views.Windows
 {
     /// <summary>
     ///     Interaction logic for LogWindow.xaml

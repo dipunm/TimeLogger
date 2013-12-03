@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using TimeLogger.Core.Data;
-using TimeLogger.MVVM;
+using MVVM.Extensions;
+using TimeLogger.Data.Core;
 
-namespace TimeLogger.ViewModels
+namespace TimeLogger.Wpf.ViewModels
 {
     public class WorkEntryViewModel : ObservableObject, IDataErrorInfo
     {
