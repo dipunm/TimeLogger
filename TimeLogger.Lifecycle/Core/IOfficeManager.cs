@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TimeLogger.Data.Core;
+using TimeLogger.Cache.Core;
 
 namespace TimeLogger.Lifecycle.Core
 {

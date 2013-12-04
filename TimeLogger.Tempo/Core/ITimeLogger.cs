@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TimeLogger.Diagno
+namespace TimeLogger.Tempo.Core
 {
-    public class Class1
+    interface ITimeLogger
     {
     }
 }

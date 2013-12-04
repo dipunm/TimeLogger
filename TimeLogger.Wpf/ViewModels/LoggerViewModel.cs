@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MVVM.Extensions;
-using TimeLogger.Data.Core;
+using TimeLogger.Cache.Core;
 
 namespace TimeLogger.Wpf.ViewModels
 {

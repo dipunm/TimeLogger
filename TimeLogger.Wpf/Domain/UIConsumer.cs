@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TimeLogger.Data.Core;
+using TimeLogger.Cache.Core;
 using TimeLogger.Lifecycle.Core;
 using TimeLogger.Utils.Core;
 using TimeLogger.Wpf.Domain.Controllers;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using MVVM.Extensions;
-using TimeLogger.Data.Core;
+using TimeLogger.Cache.Core;
 
 namespace TimeLogger.Wpf.ViewModels
 {

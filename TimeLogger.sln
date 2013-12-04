@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Tempo", "TimeLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Lifecycle", "TimeLogger.Lifecycle\TimeLogger.Lifecycle.csproj", "{3BBC2E24-B8EB-4657-A528-BED27FF024AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Data", "TimeLogger.Data\TimeLogger.Data.csproj", "{9B598165-A26D-42CB-AF08-015C757D3036}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Cache", "TimeLogger.Data\TimeLogger.Cache.csproj", "{9B598165-A26D-42CB-AF08-015C757D3036}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Wpf", "TimeLogger.Wpf\TimeLogger.Wpf.csproj", "{A74FD04E-ED5D-4F42-844C-11315DB10CEB}"
 EndProject

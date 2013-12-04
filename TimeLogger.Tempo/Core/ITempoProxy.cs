@@ -1,4 +1,4 @@
-﻿using TimeLogger.Data.Core;
+﻿using TimeLogger.Cache.Core;
 
 namespace TimeLogger.Tempo.Core
 {

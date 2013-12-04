@@ -4,9 +4,9 @@ using System.Linq;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
-using TimeLogger.Data.Core;
+using TimeLogger.Cache.Core;
 
-namespace TimeLogger.Data.Domain
+namespace TimeLogger.Cache.Domain
 {
     public class RavenBasedWorkRepository : IWorkRepository
     {

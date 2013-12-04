@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Fclp;
-using TimeLogger.Data.Domain;
+using TimeLogger.Cache.Domain;
 using TimeLogger.Debugging.TestObjects;
 using TimeLogger.Lifecycle.Domain;
 using TimeLogger.Utils.Core;

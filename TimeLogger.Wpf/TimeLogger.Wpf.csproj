@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A74FD04E-ED5D-4F42-844C-11315DB10CEB}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TimeLogger.Wpf</RootNamespace>
     <AssemblyName>TimeLogger.Wpf</AssemblyName>
@@ -188,9 +188,9 @@
       <Project>{E179B18A-8282-4788-8C80-6554DB03E14A}</Project>
       <Name>MVVM.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Data.csproj">
+    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Cache.csproj">
       <Project>{9B598165-A26D-42CB-AF08-015C757D3036}</Project>
-      <Name>TimeLogger.Data</Name>
+      <Name>TimeLogger.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeLogger.Debugging\TimeLogger.Debugging.csproj">
       <Project>{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}</Project>
