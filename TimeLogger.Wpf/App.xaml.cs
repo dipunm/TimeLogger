@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Windows;
 using Fclp;
-using TimeLogger.Cache.Domain;
+using TimeLogger.Cache.Core;
+using TimeLogger.Data.Local.Domain;
+using TimeLogger.Data.Remote.Domain;
 using TimeLogger.Debugging.TestObjects;
+using TimeLogger.Lifecycle.Core;
 using TimeLogger.Lifecycle.Domain;
+using TimeLogger.UserInterface.Core;
+using TimeLogger.UserInterface.ViewModels;
 using TimeLogger.Utils.Core;
 using TimeLogger.Utils.Domain;
 using TimeLogger.Wpf.Domain;
@@ -37,21 +42,14 @@ namespace TimeLogger.Wpf
             // READY!
             //////////
             //utils
-            IClock clock = new Clock();
-            ITimerFactory timerFactory = new TimerFactory(clock);
-            IUserTracker userTracker = new WindowsUserTracker();
-
-            //test overrides
-            if (_runInTestMode)
-            {
-                clock = new TestClock();
-                timerFactory = new TimerFactory(clock);
-            }
+            IClock clock = _runInTestMode ? (IClock) new TestClock() : new Clock();
+            IOsTracker osTracker = new WindowsOsTracker();
+            ITimerFactory timerFactory = new TimerFactory(clock, osTracker);
 
             //repo
             var storage = _runInMemMode ? 
-                new RavenBasedWorkRepository() : 
-                new RavenBasedWorkRepository(@"E:\TimeLogger\");
+                new RavenBasedLocalRepository() : 
+                new RavenBasedLocalRepository(@"E:\TimeLogger\");
 
             storage.Initialise();
             
@@ -59,29 +57,39 @@ namespace TimeLogger.Wpf
             // SET!
             //////////
             //Sam!
-            var officeManager = new OfficeManager(timerFactory, clock, storage, userTracker);
-
+            var officeManager = new OfficeManager(timerFactory, clock, storage);
+            
             //UI
             var consumer = new UIConsumer(clock, timerFactory,
                 
                 new DialogController<PromptViewModel>(
-                    () => (Window) Dispatcher.Invoke(new Func<Window>(() => new PromptWindow())), 
+                    () => (IDialog)Dispatcher.Invoke(new Func<IDialog>(() => new PromptWindow())), 
                     new PromptViewModel()),
                 
                 new DialogController<WelcomeViewModel>(
-                    () => (Window) Dispatcher.Invoke(new Func<Window>(() => new WelcomeWindow())), 
-                    new WelcomeViewModel(clock)),
+                    () => (IDialog)Dispatcher.Invoke(new Func<IDialog>(() => new WelcomeWindow())), 
+                    new WelcomeViewModel()),
                 
                 new DialogController<LoggerViewModel>(
-                    () => (Window) Dispatcher.Invoke(new Func<Window>(() => new LoggerWindow())), 
+                    () => (IDialog)Dispatcher.Invoke(new Func<IDialog>(() => new LoggerWindow())), 
                     new LoggerViewModel())
             );
+
+            var stateMachine = new OfficeManagerStateMachine(officeManager, consumer);
+
+
+            TempoArchive.BypassSslErrors();
+            var archive = new TempoArchive();
+
+            storage.SendAllToArchive(archive);
 
             //////////
             // GO!
             //////////
             var taskTray = new MainTray();
-            var taskTrayViewModel = new TaskTrayViewModel(this, officeManager, consumer);
+            var taskTrayViewModel = new TaskTrayViewModel(
+                new ApplicationContext(this)
+            );
             taskTrayViewModel.AddHttpItem("Management Studio", storage.GetManagerUrl());
             taskTray.DataContext = taskTrayViewModel;
         }

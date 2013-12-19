@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using Moq;
 using NUnit.Framework;
-using TimeLogger.Core.Data;
-using TimeLogger.Core.OfficeManager;
-using TimeLogger.Core.Utils;
-using TimeLogger.Domain.OfficeManager;
+using TimeLogger.Cache.Core;
+using TimeLogger.Data.Core;
+using TimeLogger.Lifecycle.Core;
+using TimeLogger.Lifecycle.Domain;
+using TimeLogger.Utils.Core;
 
 namespace TimeLogger.Tests.Unit
 {
@@ -17,8 +15,7 @@ namespace TimeLogger.Tests.Unit
     {
         private Mock<ITimerFactory> _timerFactory;
         private Mock<IClock> _clock;
-        private Mock<IWorkRepository> _storage;
-        private Mock<IUserTracker> _tracker;
+        private Mock<ILocalRepository> _storage;
         private OfficeManager _officeManager;
         private Mock<ITimeLoggingConsumer> _consumer;
         private Mock<ITimer> _workTimer;
@@ -33,8 +30,7 @@ namespace TimeLogger.Tests.Unit
             _timerFactory = new Mock<ITimerFactory>();
             _workTimer = new Mock<ITimer>();
             _clock = new Mock<IClock>();
-            _storage = new Mock<IWorkRepository>();
-            _tracker = new Mock<IUserTracker>();
+            _storage = new Mock<ILocalRepository>();
             _consumer = new Mock<ITimeLoggingConsumer>();
 
             _workTimer.SetupAllProperties();
@@ -42,7 +38,7 @@ namespace TimeLogger.Tests.Unit
             _storage.Setup(s => s.GetLogsForDate(It.IsAny<DateTime>()))
                 .Returns(new List<WorkLog>());
 
-            _officeManager = new OfficeManager(_timerFactory.Object, _clock.Object, _storage.Object, _tracker.Object);
+            _officeManager = new OfficeManager(_timerFactory.Object, _clock.Object, _storage.Object);
 
             _timings = new Timings()
                 {

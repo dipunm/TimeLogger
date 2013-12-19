@@ -39,22 +39,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\States\IdleState.cs" />
+    <Compile Include="Domain\_States\CapturingForClockOutState.cs" />
+    <Compile Include="Domain\_States\CapturingForExitState.cs" />
+    <Compile Include="Domain\_States\CapturingState.cs" />
+    <Compile Include="Domain\_States\ExitState.cs" />
+    <Compile Include="Core\IStatefulContext.cs" />
     <Compile Include="Core\IOfficeManager.cs" />
     <Compile Include="Core\ITimeLoggingConsumer.cs" />
+    <Compile Include="Domain\_States\NappingState.cs" />
+    <Compile Include="Domain\_States\RegisteringState.cs" />
+    <Compile Include="Core\State.cs" />
+    <Compile Include="Domain\_States\States.cs" />
+    <Compile Include="Core\StateMachine.cs" />
     <Compile Include="Core\Timings.cs" />
     <Compile Include="Domain\OfficeManager.cs" />
+    <Compile Include="Domain\_States\SleepingState.cs" />
+    <Compile Include="Domain\_States\UnRegisteredState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Cache.csproj">
-      <Project>{9B598165-A26D-42CB-AF08-015C757D3036}</Project>
-      <Name>TimeLogger.Cache</Name>
+    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Data.csproj">
+      <Project>{72DC66AB-DD94-487D-99BE-00F69F45ED9A}</Project>
+      <Name>TimeLogger.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeLogger.Utils\TimeLogger.Utils.csproj">
       <Project>{C22020CD-3294-4710-8159-8E9494D5361F}</Project>
       <Name>TimeLogger.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="TextFile1.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

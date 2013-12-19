@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE4F534A-2FC7-4459-8EDE-8F63384BC11A}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TimeLogger.UserInterface</RootNamespace>
+    <AssemblyName>TimeLogger.UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\ComposerState.cs" />
+    <Compile Include="Core\IApplication.cs" />
+    <Compile Include="Core\IDialog.cs" />
+    <Compile Include="Core\IFrameworkElement.cs" />
+    <Compile Include="Domain\Controllers\DialogController.cs" />
+    <Compile Include="Domain\Controllers\ViewController.cs" />
+    <Compile Include="Domain\Controllers\WindowController.cs" />
+    <Compile Include="Domain\UIConsumer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Core\IComposer.cs" />
+    <Compile Include="ViewModels\LoggerViewModel.cs" />
+    <Compile Include="ViewModels\MenuItemDto.cs" />
+    <Compile Include="ViewModels\PromptViewModel.cs" />
+    <Compile Include="ViewModels\TaskTrayViewModel.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
+    <Compile Include="ViewModels\WorkEntryViewModel.cs" />
+    <Compile Include="ViewModels\WorkLogStatsViewModel.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MVVM.Extensions\MVVM.Extensions.csproj">
+      <Project>{E179B18A-8282-4788-8C80-6554DB03E14A}</Project>
+      <Name>MVVM.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Data.Local\TimeLogger.Data.Local.csproj">
+      <Project>{9B598165-A26D-42CB-AF08-015C757D3036}</Project>
+      <Name>TimeLogger.Data.Local</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Data\TimeLogger.Data.csproj">
+      <Project>{72DC66AB-DD94-487D-99BE-00F69F45ED9A}</Project>
+      <Name>TimeLogger.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Lifecycle\TimeLogger.Lifecycle.csproj">
+      <Project>{3BBC2E24-B8EB-4657-A528-BED27FF024AB}</Project>
+      <Name>TimeLogger.Lifecycle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLogger.Utils\TimeLogger.Utils.csproj">
+      <Project>{C22020CD-3294-4710-8159-8E9494D5361F}</Project>
+      <Name>TimeLogger.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

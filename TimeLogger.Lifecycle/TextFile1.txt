@@ -1,0 +1,26 @@
+﻿STATES:
+When we start the Application, the officeManager is UNREGISTERED
+When we clock in, the officeManager is REGISTERED
+When we have entered clock in data, the officeManager is SLEEPING
+When the timer elapses, the officeManager is IDLE
+When we snooze, the officeManager is NAPPING
+When we force time logging, the officeManager is IDLE
+When we submit our time logs, the officeManager is LOGGING
+When logs are persisted, the officeManager is SLEEPING
+When we clock out, the officeManager is UNREGISTERED
+
+                                        +-----------------------------+ 
+                                        |            COMPLETE         |
+				    +-----> CAPTURINGFOREXIT ----------------------+  |
+				    |           ^    ^                             |  | 
+					|           |    +-----------------------+     |  |
+               EXIT |           |       Nap Complete         |     |  |
+					|           |  +-----------------------+ |     |  |
+				    |		    |  v                       | |     |  |
+REGISTERED ---> SLEEPING ---> CAPTURING ---+----------> NAPPING    |  |
+     ^            ^               |        | Snooze                |  |
+	 |			  |    Submit     |        | Submit And End        |  |
+	 |			  +---------------+        +--------------------+  |  |
+	 |                                                          |  |  |
+	 |			        Clock In                                v  v  v
+	 +----------------------------------------------------- ::|UNREGISTERED|:: ---> EXIT

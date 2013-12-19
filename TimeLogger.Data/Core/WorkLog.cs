@@ -9,5 +9,7 @@ namespace TimeLogger.Cache.Core
         public int Minutes { get; set; }
         public List<string> TicketCodes { get; set; }
         public DateTime Date { get; set; }
+        public bool Archived { get; set; }
+        public DateTime? ArchiveDate { get; set; }
     }
 }

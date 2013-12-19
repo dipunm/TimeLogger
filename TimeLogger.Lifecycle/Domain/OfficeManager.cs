@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using TimeLogger.Cache.Core;
+using TimeLogger.Data.Core;
 using TimeLogger.Lifecycle.Core;
 using TimeLogger.Utils.Core;
 
 namespace TimeLogger.Lifecycle.Domain
 {
-    public class OfficeManager : IOfficeManager
+    public class OfficeManager : IOfficeManager, IDisposable
     {
         private readonly IClock _clock;
         private readonly ITimer _snoozeAllowanceTimer;
-        private readonly IWorkRepository _storage;
-        private readonly IUserTracker _userTracker;
+        private readonly ILocalRepository _storage;
         private readonly ITimer _workLogTimer;
 
         private ITimeLoggingConsumer _consumer;
@@ -24,23 +24,16 @@ namespace TimeLogger.Lifecycle.Domain
 
         public OfficeManager(
             ITimerFactory timerFactory, IClock clock,
-            IWorkRepository storage, IUserTracker userTracker)
+            ILocalRepository storage)
         {
             _workLogTimer = timerFactory.CreateTimer();
             _snoozeAllowanceTimer = timerFactory.CreateTimer();
             _clock = clock;
             _storage = storage;
-            _userTracker = userTracker;
             _timespanZeroThreshold = TimeSpan.FromTicks(10000);
             _minRequiredTimeToLog = TimeSpan.FromMinutes(1);
 
-            SetupComputer();
             SetupTimers();
-        }
-        private void SetupComputer()
-        {
-            _userTracker.UserLeft += UserTrackerOnUserLeft;
-            _userTracker.UserReturned += UserTrackerOnUserReturned;
         }
 
         private void SetupTimers()
@@ -62,18 +55,6 @@ namespace TimeLogger.Lifecycle.Domain
         private void DisableSnooze(ITimer sender)
         {
             _consumer.SetSnoozeEnabled(false);
-        }
-
-        private void UserTrackerOnUserReturned(IUserTracker sender)
-        {
-            if (_workLogTimer.InProgress())
-                _workLogTimer.FirePendingEvent();
-        }
-
-        private void UserTrackerOnUserLeft(IUserTracker sender)
-        {
-            if (_workLogTimer.InProgress())
-                _workLogTimer.HoldEventFire();
         }
 
         private TimeSpan GetSleepableDuration()
@@ -197,6 +178,29 @@ namespace TimeLogger.Lifecycle.Domain
         public void ForceLoggingTime()
         {
             StartLoggingTime();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        private bool _disposed;
+        protected virtual void Dispose(bool isDisposing)
+        {
+            if (!_disposed)
+            {
+                if (isDisposing)
+                {
+                    _workLogTimer.Elapsed -= RequestWorkLogs;
+                    _workLogTimer.Reset();
+                    _snoozeAllowanceTimer.Elapsed -= DisableSnooze;
+                    _snoozeAllowanceTimer.Reset();
+                    _disposed = true;
+                }
+            }
         }
     }
 }

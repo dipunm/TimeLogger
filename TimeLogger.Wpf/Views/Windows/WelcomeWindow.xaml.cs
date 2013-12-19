@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using MVVM.Extensions;
+using TimeLogger.UserInterface.Core;
 using TimeLogger.Wpf.ViewModels;
 
 namespace TimeLogger.Wpf.Views.Windows
@@ -8,7 +9,7 @@ namespace TimeLogger.Wpf.Views.Windows
     /// <summary>
     ///     Interaction logic for LogWindow.xaml
     /// </summary>
-    public partial class WelcomeWindow : Window,  IViewModelHandler<WelcomeViewModel>
+    public partial class WelcomeWindow : Window, IViewModelHandler<WelcomeViewModel>, IDialog
     {
         public WelcomeWindow()
         {

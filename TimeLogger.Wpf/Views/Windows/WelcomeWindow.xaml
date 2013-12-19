@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:vm="clr-namespace:TimeLogger.Wpf.ViewModels;assembly=TimeLogger.UserInterface"
         d:DataContext="{d:DesignInstance Type=vm:WelcomeViewModel}"
         mc:Ignorable="d"
-        Title="LogWindow" Height="231" Width="528">
+        Title="LogWindow" Height="231" Width="528"
+        Loaded="{Binding Initialise}">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

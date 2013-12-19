@@ -10,6 +10,6 @@ namespace TimeLogger.Lifecycle.Core
         void LogTime(IOfficeManager officeManager, TimeSpan timeToLog);
         void SetSnoozeEnabled(bool enabled);
 
-        DateTime GetEndTime();
+        void BeginLogTime(TimeSpan timeToLog);
     }
 }

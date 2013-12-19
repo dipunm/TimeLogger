@@ -7,18 +7,39 @@ namespace TimeLogger.Utils.Domain
     public class Timer : ITimer
     {
         private readonly IClock _clock;
+        private readonly IOsTracker _osTracker;
         private readonly System.Timers.Timer _realTimer;
         private DateTime? _beganTime;
         private bool _inProgress;
 
-        public Timer(IClock clock)
+        public Timer(IClock clock, IOsTracker osTracker)
         {
             _clock = clock;
+            _osTracker = osTracker;
             _realTimer = new System.Timers.Timer
                 {
                     AutoReset = false
                 };
             _realTimer.Elapsed += (sender, args) => OnElapsed();
+            SetupComputer();
+        }
+
+        private void SetupComputer()
+        {
+            _osTracker.UserLeft += OsTrackerOnOsLeft;
+            _osTracker.UserReturned += OsTrackerOnOsReturned;
+        }
+
+        private void OsTrackerOnOsReturned(IOsTracker sender)
+        {
+            if (InProgress())
+                FirePendingEvent();
+        }
+
+        private void OsTrackerOnOsLeft(IOsTracker sender)
+        {
+            if (InProgress())
+                HoldEventFire();
         }
 
         public event TimerElapsedAction Elapsed;
@@ -62,7 +83,6 @@ namespace TimeLogger.Utils.Domain
             if (InProgress())
             {
                 _realTimer.Stop(); //incase this hasn't been done yet.
-                Debug.Assert(_beganTime != null, "_beganTime != null");
                 TimeSpan timeTaken = _clock.Now() - _beganTime.Value;
                 if (timeTaken >= Duration)
                 {
@@ -80,9 +100,10 @@ namespace TimeLogger.Utils.Domain
 
         private void OnElapsed()
         {
-            if (Elapsed != null)
+            if (Elapsed != null && InProgress())
             {
                 Elapsed.Invoke(this);
+                Reset();
             }
         }
 

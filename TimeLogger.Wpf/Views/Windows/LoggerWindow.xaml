@@ -5,6 +5,7 @@
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:TimeLogger.Wpf.Views.UserControls"
+        xmlns:vm="clr-namespace:TimeLogger.Wpf.ViewModels;assembly=TimeLogger.UserInterface"
         d:DataContext="{d:DesignInstance Type=vm:LoggerViewModel}"
         Height="211" Width="599"
         Title="{Binding Title}">
