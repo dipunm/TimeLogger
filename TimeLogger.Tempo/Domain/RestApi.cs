@@ -21,7 +21,8 @@ namespace TimeLogger.Tempo.Domain
             var url = new Uri(_jiraBaseUrl, "/jira/rest/login");
             var request = new RestRequest(url);
             var response = _client.Post(request);
-            response.
+           // response.
+            return String.Empty;
         }
 
         public bool IsValidSessionToken(string sessionToken)

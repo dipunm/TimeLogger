@@ -43,12 +43,12 @@
     <Compile Include="Core\ITimer.cs" />
     <Compile Include="Core\ITimerFactory.cs" />
     <Compile Include="Core\ITimeTracker.cs" />
-    <Compile Include="Core\IUserTracker.cs" />
+    <Compile Include="Core\IOsTracker.cs" />
     <Compile Include="Domain\Clock.cs" />
     <Compile Include="Domain\Timer.cs" />
     <Compile Include="Domain\TimerFactory.cs" />
     <Compile Include="Domain\TimeTracker.cs" />
-    <Compile Include="Domain\WindowsUserTracker.cs" />
+    <Compile Include="Domain\WindowsOsTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,18 +7,39 @@ namespace TimeLogger.Utils.Domain
     public class Timer : ITimer
     {
         private readonly IClock _clock;
+        private readonly IOsTracker _osTracker;
         private readonly System.Timers.Timer _realTimer;
         private DateTime? _beganTime;
         private bool _inProgress;
 
-        public Timer(IClock clock)
+        public Timer(IClock clock, IOsTracker osTracker)
         {
             _clock = clock;
+            _osTracker = osTracker;
             _realTimer = new System.Timers.Timer
                 {
                     AutoReset = false
                 };
             _realTimer.Elapsed += (sender, args) => OnElapsed();
+            SetupComputer();
+        }
+
+        private void SetupComputer()
+        {
+            _osTracker.UserLeft += UserTrackerOnUserLeft;
+            _osTracker.UserReturned += UserTrackerOnUserReturned;
+        }
+
+        private void UserTrackerOnUserReturned(IOsTracker sender)
+        {
+            if (InProgress())
+                FirePendingEvent();
+        }
+
+        private void UserTrackerOnUserLeft(IOsTracker sender)
+        {
+            if (InProgress())
+                HoldEventFire();
         }
 
         public event TimerElapsedAction Elapsed;

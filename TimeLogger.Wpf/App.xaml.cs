@@ -38,9 +38,9 @@ namespace TimeLogger.Wpf
             //////////
             //utils
             IClock clock = new Clock();
-            ITimerFactory timerFactory = new TimerFactory(clock);
-            IUserTracker userTracker = new WindowsUserTracker();
-
+            IOsTracker osTracker = new WindowsOsTracker();
+            ITimerFactory timerFactory = new TimerFactory(clock, osTracker);
+            
             //test overrides
             if (_runInTestMode)
             {
@@ -59,7 +59,7 @@ namespace TimeLogger.Wpf
             // SET!
             //////////
             //Sam!
-            var officeManager = new OfficeManager(timerFactory, clock, storage, userTracker);
+            var officeManager = new OfficeManager(timerFactory, clock, storage);
 
             //UI
             var consumer = new UIConsumer(clock, timerFactory,

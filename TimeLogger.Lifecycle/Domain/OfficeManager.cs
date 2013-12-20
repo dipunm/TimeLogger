@@ -12,7 +12,6 @@ namespace TimeLogger.Lifecycle.Domain
         private readonly IClock _clock;
         private readonly ITimer _snoozeAllowanceTimer;
         private readonly IWorkRepository _storage;
-        private readonly IUserTracker _userTracker;
         private readonly ITimer _workLogTimer;
 
         private ITimeLoggingConsumer _consumer;
@@ -24,23 +23,16 @@ namespace TimeLogger.Lifecycle.Domain
 
         public OfficeManager(
             ITimerFactory timerFactory, IClock clock,
-            IWorkRepository storage, IUserTracker userTracker)
+            IWorkRepository storage)
         {
             _workLogTimer = timerFactory.CreateTimer();
             _snoozeAllowanceTimer = timerFactory.CreateTimer();
             _clock = clock;
             _storage = storage;
-            _userTracker = userTracker;
             _timespanZeroThreshold = TimeSpan.FromTicks(10000);
             _minRequiredTimeToLog = TimeSpan.FromMinutes(1);
 
-            SetupComputer();
             SetupTimers();
-        }
-        private void SetupComputer()
-        {
-            _userTracker.UserLeft += UserTrackerOnUserLeft;
-            _userTracker.UserReturned += UserTrackerOnUserReturned;
         }
 
         private void SetupTimers()
@@ -62,18 +54,6 @@ namespace TimeLogger.Lifecycle.Domain
         private void DisableSnooze(ITimer sender)
         {
             _consumer.SetSnoozeEnabled(false);
-        }
-
-        private void UserTrackerOnUserReturned(IUserTracker sender)
-        {
-            if (_workLogTimer.InProgress())
-                _workLogTimer.FirePendingEvent();
-        }
-
-        private void UserTrackerOnUserLeft(IUserTracker sender)
-        {
-            if (_workLogTimer.InProgress())
-                _workLogTimer.HoldEventFire();
         }
 
         private TimeSpan GetSleepableDuration()

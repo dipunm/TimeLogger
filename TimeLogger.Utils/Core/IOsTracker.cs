@@ -1,8 +1,8 @@
 ﻿namespace TimeLogger.Utils.Core
 {
-    public delegate void ComputerEventHandler(IUserTracker sender);
+    public delegate void ComputerEventHandler(IOsTracker sender);
 
-    public interface IUserTracker
+    public interface IOsTracker
     {
         event ComputerEventHandler UserLeft;
         event ComputerEventHandler UserReturned;

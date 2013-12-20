@@ -4,11 +4,11 @@ using TimeLogger.Utils.Core;
 
 namespace TimeLogger.Utils.Domain
 {
-    public class WindowsUserTracker : IUserTracker, IDisposable
+    public class WindowsOsTracker : IOsTracker, IDisposable
     {
         private bool disposed = false;
 
-        public WindowsUserTracker()
+        public WindowsOsTracker()
         {
             SystemEvents.SessionSwitch += HandleSessionSwitching;
             SystemEvents.PowerModeChanged += HandlePowerChanging;
