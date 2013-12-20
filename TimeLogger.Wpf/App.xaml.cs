@@ -37,16 +37,9 @@ namespace TimeLogger.Wpf
             // READY!
             //////////
             //utils
-            IClock clock = new Clock();
+            IClock clock = _runInTestMode ? (IClock) new TestClock() : new Clock();
             IOsTracker osTracker = new WindowsOsTracker();
             ITimerFactory timerFactory = new TimerFactory(clock, osTracker);
-            
-            //test overrides
-            if (_runInTestMode)
-            {
-                clock = new TestClock();
-                timerFactory = new TimerFactory(clock);
-            }
 
             //repo
             var storage = _runInMemMode ? 
