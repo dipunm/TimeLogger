@@ -31,19 +31,19 @@
             </TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                 AcceptsReturn="True" HorizontalAlignment="Stretch"
-                Text="{Binding Comment, Mode=TwoWay}"/>
+                Text="{Binding Comment, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="1" Grid.Column="0">
                 For how long?
             </TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1"
                 Width="76" HorizontalAlignment="Left"
-                Text="{Binding MinutesWorked, Mode=TwoWay}" />
+                Text="{Binding MinutesWorked, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Row="2" Grid.Column="0">
                 Which Tickets?
             </TextBlock>
             <TextBox Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Stretch"
-                Text="{Binding TicketCodes, Mode=TwoWay}" />
+                Text="{Binding TicketCodes, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
             <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"
                 IsChecked="{Binding IsBreak}">Break</CheckBox>
             <TextBlock Grid.Row="1" Grid.Column="2">
