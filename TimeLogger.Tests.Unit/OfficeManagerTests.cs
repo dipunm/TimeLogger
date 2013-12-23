@@ -21,7 +21,7 @@ namespace TimeLogger.Tests.Unit
         private Mock<IOsTracker> _tracker;
         private OfficeManager _officeManager;
         private Mock<ITimeLoggingConsumer> _consumer;
-        private Mock<ITimer> _workTimer;
+        private Mock<IAlarm> _workTimer;
 
         private Timings _timings;
         private DateTime _startTime;
@@ -31,7 +31,7 @@ namespace TimeLogger.Tests.Unit
         public void SetUp()
         {
             _timerFactory = new Mock<ITimerFactory>();
-            _workTimer = new Mock<ITimer>();
+            _workTimer = new Mock<IAlarm>();
             _clock = new Mock<IClock>();
             _storage = new Mock<IWorkRepository>();
             _consumer = new Mock<ITimeLoggingConsumer>();

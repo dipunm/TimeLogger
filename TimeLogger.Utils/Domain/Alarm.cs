@@ -4,7 +4,7 @@ using TimeLogger.Utils.Core;
 
 namespace TimeLogger.Utils.Domain
 {
-    public class Timer : ITimer
+    public class Alarm : IAlarm
     {
         private readonly IClock _clock;
         private readonly IOsTracker _osTracker;
@@ -12,10 +12,11 @@ namespace TimeLogger.Utils.Domain
         private DateTime? _beganTime;
         private bool _inProgress;
 
-        public Timer(IClock clock, IOsTracker osTracker)
+        public Alarm(IClock clock, IOsTracker osTracker, string name)
         {
             _clock = clock;
             _osTracker = osTracker;
+            Name = name;
             _realTimer = new System.Timers.Timer
                 {
                     AutoReset = false
@@ -42,6 +43,7 @@ namespace TimeLogger.Utils.Domain
                 HoldEventFire();
         }
 
+        public string Name { get; private set; }
         public event TimerElapsedAction Elapsed;
 
         public bool InProgress()

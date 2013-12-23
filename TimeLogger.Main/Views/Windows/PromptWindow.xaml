@@ -1,0 +1,25 @@
+﻿<Window x:Class="TimeLogger.Wpf.Views.Windows.PromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Prompt" Height="114.029" Width="393.238"
+        d:DataContext="{d:DesignInstance d:Type=vm:PromptViewModel}">
+    <Grid VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap"
+                       VerticalAlignment="Top" FontSize="14pt">
+                It is time to log your time again!
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button IsEnabled="{Binding CanSnooze}" IsCancel="True" Click="SnoozeClick" Margin="9,5,9,1">Sleep</Button>
+            <Button Click="LogTimeClick" IsDefault="True">Log Time</Button>
+        </StackPanel>
+    </Grid>
+</Window>

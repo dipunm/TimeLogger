@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObjects\TestClock.cs" />
-    <Compile Include="TestObjects\TestTimer.cs" />
+    <Compile Include="TestObjects\TestAlarmClock.cs" />
     <Compile Include="TestObjects\TestTimerFactory.cs" />
     <Compile Include="ViewModels\ClockLogViewModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />

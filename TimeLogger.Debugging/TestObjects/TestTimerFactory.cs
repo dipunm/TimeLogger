@@ -12,9 +12,9 @@ namespace TimeLogger.Debugging.TestObjects
             _clock = clock;
         }
 
-        public ITimer CreateTimer()
+        public IAlarm CreateTimer()
         {
-            return new TestTimer();
+            return new TestAlarmClock();
         }
 
         public ITimeTracker CreateTimeTracker()

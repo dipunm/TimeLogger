@@ -84,7 +84,7 @@
     </ProjectReference>
     <ProjectReference Include="..\TimeLogger.Wpf\TimeLogger.Wpf.csproj">
       <Project>{a74fd04e-ed5d-4f42-844c-11315db10ceb}</Project>
-      <Name>TimeLogger</Name>
+      <Name>TimeLogger.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

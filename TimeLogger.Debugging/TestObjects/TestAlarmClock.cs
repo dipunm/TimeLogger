@@ -5,11 +5,11 @@ using TimeLogger.Utils.Core;
 
 namespace TimeLogger.Debugging.TestObjects
 {
-    public class TestTimer : ITimer
+    public class TestAlarmClock : IAlarm
     {
         private readonly TimerViewModel _viewModel;
         private readonly TimerWindow _window;
-        public TestTimer()
+        public TestAlarmClock()
         {
             _viewModel = new TimerViewModel();
             _window = new TimerWindow();
@@ -24,6 +24,7 @@ namespace TimeLogger.Debugging.TestObjects
             set { _viewModel.Duration = value; }
         }
 
+        public string Name { get; private set; }
         public event TimerElapsedAction Elapsed;
         public bool InProgress()
         {

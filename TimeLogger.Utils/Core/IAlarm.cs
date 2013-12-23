@@ -2,11 +2,10 @@
 
 namespace TimeLogger.Utils.Core
 {
-    public delegate void TimerElapsedAction(ITimer sender);
-
-    public interface ITimer
+    public interface IAlarm
     {
         TimeSpan Duration { get; set; }
+        string Name { get; }
         event TimerElapsedAction Elapsed;
 
         bool InProgress();
