@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
+using TimeLogger.Main.ViewModels;
+using TimeLogger.Main.Views.Windows;
+using TimeLogger.Tempo.Domain;
 using TimeLogger.Utils.Core;
 using TimeLogger.Utils.Domain;
 using TimeLogger.Wpf.Domain.Controllers;
@@ -17,6 +20,14 @@ namespace TimeLogger.Main
     {
         private void Main(object sender, StartupEventArgs e)
         {
+            var storageA = new RavenTempStorage(@"C:\Timer\");
+            storageA.Initialise();
+            var proxy = new RestApiProxy(new Uri("https://jira.dfc.local:8443/"));
+                var window = new TempoClientWindow();
+            window.SetViewModel(new TempoViewModel(storageA, proxy));
+            window.Show();
+            return;
+
             var osTracker = new WindowsOsTracker();
             var clock = new AlarmClock(osTracker);
             var storage = new RavenTempStorage(@"C:\Timer\");

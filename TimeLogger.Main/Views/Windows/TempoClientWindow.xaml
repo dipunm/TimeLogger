@@ -1,0 +1,101 @@
+﻿<Window x:Class="TimeLogger.Main.Views.Windows.TempoClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="TempoClientWindow" Height="244" SizeToContent="Width"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignData Source=/SampleData/TempoClientData.xaml}"
+        Loaded="TempoClientWindow_OnLoaded"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Background="DarkGray">
+            <StackPanel.Resources>
+                <Style x:Key="LoggedIn">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LoggedIn}" Value="True">
+                            <Setter Property="TextBlock.Visibility" Value="Visible" />
+                            <Setter Property="TextBox.Visibility" Value="Visible" />
+                            <Setter Property="PasswordBox.Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding LoggedIn}" Value="False">
+                            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+                            <Setter Property="TextBox.Visibility" Value="Collapsed" />
+                            <Setter Property="PasswordBox.Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <Style x:Key="LoggedOut">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LoggedIn}" Value="True">
+                            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+                            <Setter Property="TextBox.Visibility" Value="Collapsed" />
+                            <Setter Property="PasswordBox.Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding LoggedIn}" Value="False">
+                            <Setter Property="TextBlock.Visibility" Value="Visible" />
+                            <Setter Property="TextBox.Visibility" Value="Visible" />
+                            <Setter Property="PasswordBox.Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+            
+            <TextBlock Style="{StaticResource LoggedIn}" Margin="5,0,5,0" VerticalAlignment="Center">
+                Logged in as 
+                <TextBlock Margin="0" FontWeight="Bold" Text="{Binding UserName}"></TextBlock>.
+            </TextBlock>
+            <Button Style="{StaticResource LoggedIn}" VerticalAlignment="Center" Command="{Binding LogoutAction}">Log Out</Button>
+
+            <TextBlock Style="{StaticResource LoggedOut}" VerticalAlignment="Center">Username:</TextBlock>
+            <TextBox Style="{StaticResource LoggedOut}" Width="100" VerticalAlignment="Center" Text="{Binding UserName, Mode=TwoWay}"></TextBox>
+            <TextBlock Style="{StaticResource LoggedOut}" VerticalAlignment="Center">Password:</TextBlock>
+            <PasswordBox x:Name="Password" Style="{StaticResource LoggedOut}" Width="100" VerticalAlignment="Center" />
+            <Button Style="{StaticResource LoggedOut}" VerticalAlignment="Bottom" Click="Button_Click">Login</Button>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalAlignment="Stretch">
+        <StackPanel Margin="5"  VerticalAlignment="Stretch"  CanVerticallyScroll="True">
+            <TextBlock FontFamily="Nirmala UI" FontSize="16" FontWeight="Bold" TextDecorations="{x:Null}" Margin="0,0,0,10">Pending Sessions:</TextBlock>
+            <Separator />
+            <ItemsControl ItemsSource="{Binding WorkLogGroups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <StackPanel>
+                                <Grid Margin="0, 0, 0, 5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding GroupName}" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Date, StringFormat=Da\\te: dd/MMM/yy}"></TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding TimeLogged, StringFormat=\\T\\i\\m\\e\\ \\L\\o\\g\\g\\e\\d\\:\\ hh\\ \\h\\o\\u\\r\\s\\\,\\ \\a\\n\\d\\ mm\\ \\m\\i\\n\\u\\t\\e\\s}" />
+                                    <Button Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.LoggedIn}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubmitAction}" 
+                                            CommandParameter="{Binding}">
+                                        Submit
+                                    </Button>
+                                </Grid>
+                                <Separator />
+                            </StackPanel>
+                        </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                            <StackPanel VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

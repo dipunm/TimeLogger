@@ -37,7 +37,7 @@ namespace TimeLogger.Main
         public void Initialise()
         {
             _documentStore.Initialize();
-            if (!_documentStore.DatabaseCommands.GetIndexNames(0, 3).Contains("WorkLogs/BySession"))
+            if (!_documentStore.DatabaseCommands.GetIndexNames(0, 5).Contains("WorkLogs/BySession"))
             {
                 _documentStore.DatabaseCommands.PutIndex("WorkLogs/BySession", new IndexDefinitionBuilder<WorkLog, string>()
                     {
@@ -45,6 +45,7 @@ namespace TimeLogger.Main
                                       select new { log.SessionToken }
                     });
             }
+
         }
 
 
@@ -75,6 +76,18 @@ namespace TimeLogger.Main
         public string GenerateSessionKey()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public IEnumerable<string> GetNonArchivedSessionKeys()
+        {
+            using (IDocumentSession session = _documentStore.OpenSession())
+            {
+                return session.Query<WorkLog>()
+                    .Where(l =>  l.Archived != true)
+                    .Select(l => l.SessionToken)
+                    .Distinct()
+                    .ToList();
+            }
         }
 
         public Uri GetManagementUri()

@@ -10,5 +10,6 @@ namespace TimeLogger.Cache.Core
         public List<string> TicketCodes { get; set; }
         public DateTime Date { get; set; }
         internal string SessionToken { get; set; }
+        internal bool Archived { get; set; }
     }
 }

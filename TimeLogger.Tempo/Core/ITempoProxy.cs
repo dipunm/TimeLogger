@@ -4,8 +4,8 @@ namespace TimeLogger.Tempo.Core
 {
     public interface ITempoProxy
     {
-        string GetSessionToken();
-        bool IsValidSessionToken(string sessionToken);
-        void AddWorkLog(WorkLog work);
+        object GetSessionToken(string username, string password);
+        bool IsValidSessionToken(object sessionToken);
+        void AddWorkLog(WorkLog work, object sessionToken);
     }
 }

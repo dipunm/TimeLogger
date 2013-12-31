@@ -8,5 +8,6 @@ namespace TimeLogger.Main
         List<WorkLog> GetAllLogs(string sessionKey);
         void AddRange(IEnumerable<WorkLog> logs, string sessionKey);
         string GenerateSessionKey();
+        IEnumerable<string> GetNonArchivedSessionKeys();
     }
 }
