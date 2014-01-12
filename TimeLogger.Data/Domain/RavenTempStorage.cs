@@ -4,6 +4,7 @@ using System.Linq;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
+using Raven.Database.Server;
 using TimeLogger.Cache.Core;
 
 namespace TimeLogger.Main
@@ -16,6 +17,7 @@ namespace TimeLogger.Main
         {
             _documentStore = dataStore;
             _documentStore.UseEmbeddedHttpServer = true;
+            NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(_documentStore.Configuration.Port);
         }
 
         public RavenTempStorage(string path) 

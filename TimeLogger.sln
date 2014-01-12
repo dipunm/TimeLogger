@@ -9,11 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Lifecycle", "Tim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Cache", "TimeLogger.Data\TimeLogger.Cache.csproj", "{9B598165-A26D-42CB-AF08-015C757D3036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Wpf", "TimeLogger.Wpf\TimeLogger.Wpf.csproj", "{A74FD04E-ED5D-4F42-844C-11315DB10CEB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Utils", "TimeLogger.Utils\TimeLogger.Utils.csproj", "{C22020CD-3294-4710-8159-8E9494D5361F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLogger.Debugging", "TimeLogger.Debugging\TimeLogger.Debugging.csproj", "{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM.Extensions", "MVVM.Extensions\MVVM.Extensions.csproj", "{E179B18A-8282-4788-8C80-6554DB03E14A}"
 EndProject
@@ -43,18 +39,10 @@ Global
 		{9B598165-A26D-42CB-AF08-015C757D3036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B598165-A26D-42CB-AF08-015C757D3036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B598165-A26D-42CB-AF08-015C757D3036}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A74FD04E-ED5D-4F42-844C-11315DB10CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C22020CD-3294-4710-8159-8E9494D5361F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C22020CD-3294-4710-8159-8E9494D5361F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C22020CD-3294-4710-8159-8E9494D5361F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C22020CD-3294-4710-8159-8E9494D5361F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6123B8E2-2E3A-42B2-9924-6DF18181DDD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E179B18A-8282-4788-8C80-6554DB03E14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E179B18A-8282-4788-8C80-6554DB03E14A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E179B18A-8282-4788-8C80-6554DB03E14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
