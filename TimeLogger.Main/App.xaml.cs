@@ -20,14 +20,6 @@ namespace TimeLogger.Main
     {
         private void Main(object sender, StartupEventArgs e)
         {
-            var storageA = new RavenTempStorage(@"C:\Timer\");
-            storageA.Initialise();
-            var proxy = new RestApiProxy(new Uri("https://jira.dfc.local:8443/"));
-                var window = new TempoClientWindow();
-            window.SetViewModel(new TempoViewModel(storageA, proxy));
-            window.Show();
-            return;
-
             var osTracker = new WindowsOsTracker();
             var clock = new AlarmClock(osTracker);
             var storage = new RavenTempStorage(@"C:\Timer\");
@@ -61,6 +53,11 @@ namespace TimeLogger.Main
             taskTray.DataContext = taskTrayViewModel;
             taskTrayViewModel.AddHttpItem("Database", storage.GetManagementUri());
             taskTrayViewModel.AddHttpItem("Jira", new Uri("https://jira.dfc.local:8443/secure/Dashboard.jspa"));
+            
+            var tempoProxy = new RestApiProxy(new Uri("https://jira.dfc.local:8443/"));
+            var tempoClient = new TempoClientWindow();
+            tempoClient.SetViewModel(new TempoViewModel(storage, tempoProxy));
+            taskTrayViewModel.AddWindowItem("Tempo", tempoClient);
         }
 
         private Func<Window> DispatcherFunc(Func<Window> action)

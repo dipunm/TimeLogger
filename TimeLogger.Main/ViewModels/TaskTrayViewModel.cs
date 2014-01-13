@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MVVM.Extensions;
+using TimeLogger.Main.Views.Windows;
 
 namespace TimeLogger.Wpf.ViewModels
 {
@@ -202,6 +203,16 @@ namespace TimeLogger.Wpf.ViewModels
                 {
                     Header = name,
                     Command = new DelegateCommand(() => Process.Start(url.AbsoluteUri))
+                });
+            RefreshMenu();
+        }
+
+        public void AddWindowItem(string name, Window window)
+        {
+            ExtraMenuItems.Add(new MenuItem
+                {
+                    Header = name,
+                    Command = new DelegateCommand(() => window.Dispatcher.BeginInvoke(new Action(() => window.Show())))
                 });
             RefreshMenu();
         }

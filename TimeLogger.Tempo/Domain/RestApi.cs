@@ -18,23 +18,26 @@ namespace TimeLogger.Tempo.Domain
 
         public RestApiProxy(Uri jiraBaseUrl)
         {
-            _client = new RestClient();
+            _client = new RestClient(jiraBaseUrl.GetLeftPart(UriPartial.Authority));
+            _client.FollowRedirects = false;
             _jiraBaseUrl = jiraBaseUrl;
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
         public object GetSessionToken(string username, string password)
         {
             var url = new Uri(_jiraBaseUrl, "/jira/rest/gadget/1.0/login");
             var request = new RestRequest(url);
-            request.AddBody(new { username, password });
+            request.AddParameter("os_username", username);
+            request.AddParameter("os_password", password);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             var response = _client.Post(request);
             foreach (var cookie in response.Cookies)
             {
                 if (cookie.Name == "JSESSIONID")
-                    return cookie.Value;
+                    return new TempoSession {SessionId = cookie.Value, Username = username};
             }
-            return String.Empty;
+            return null;
         }
 
         public bool IsValidSessionToken(object sessionToken)

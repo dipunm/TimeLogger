@@ -54,7 +54,7 @@ namespace TimeLogger.Utils.Domain
         public void Start()
         {
             _beganTime = _clock.Now();
-            _realTimer.Interval = Duration.TotalMilliseconds;
+            _realTimer.Interval = Math.Max(Duration.TotalMilliseconds, 1);
             _realTimer.Start();
             _inProgress = true;
         }

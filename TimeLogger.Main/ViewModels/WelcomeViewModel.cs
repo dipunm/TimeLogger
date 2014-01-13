@@ -26,7 +26,7 @@ namespace TimeLogger.Wpf.ViewModels
             SnoozeDurationMins = 2;
             SleepDurationMins = 60;
             MaxSnoozeDurationMins = 10;
-            TimeLoggingTickets = "PAY-000";
+            TimeLoggingTickets = "AD-13";
         }
 
         public int SnoozeDurationMins

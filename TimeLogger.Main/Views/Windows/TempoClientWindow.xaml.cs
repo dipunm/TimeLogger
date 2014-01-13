@@ -29,8 +29,8 @@ namespace TimeLogger.Main.Views.Windows
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var password = Password.Password;
-            if (ViewModel.UpdateAction.CanExecute(password))
-                ViewModel.UpdateAction.Execute(password); 
+            if (ViewModel.LoginAction.CanExecute(password))
+                ViewModel.LoginAction.Execute(password); 
         }
 
         public void SetViewModel(TempoViewModel model)
@@ -42,6 +42,12 @@ namespace TimeLogger.Main.Views.Windows
         {
             if (ViewModel.UpdateAction.CanExecute(null))
                 ViewModel.UpdateAction.Execute(null); 
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
         }
     }
 }
