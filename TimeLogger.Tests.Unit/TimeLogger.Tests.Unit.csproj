@@ -82,10 +82,6 @@
       <Project>{C22020CD-3294-4710-8159-8E9494D5361F}</Project>
       <Name>TimeLogger.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeLogger.Wpf\TimeLogger.Wpf.csproj">
-      <Project>{a74fd04e-ed5d-4f42-844c-11315db10ceb}</Project>
-      <Name>TimeLogger</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

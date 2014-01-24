@@ -74,9 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\IWorkRepository.cs" />
+    <Compile Include="Core\ITempStorage.cs" />
+    <Compile Include="Domain\RavenTempStorage.cs" />
     <Compile Include="Core\WorkLog.cs" />
-    <Compile Include="Domain\RavenBasedWorkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,3 +4,4 @@ packages/
 */obj/*
 .nuget/NuGet.exe
 *.DotSettings
+_ReSharper*

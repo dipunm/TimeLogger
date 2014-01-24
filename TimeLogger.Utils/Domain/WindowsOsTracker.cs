@@ -20,6 +20,7 @@ namespace TimeLogger.Utils.Domain
             {
                 SystemEvents.SessionSwitch -= HandleSessionSwitching;
                 SystemEvents.PowerModeChanged -= HandlePowerChanging;
+                disposed = true;
             }
         }
 

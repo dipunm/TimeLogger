@@ -39,10 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\IOfficeManager.cs" />
-    <Compile Include="Core\ITimeLoggingConsumer.cs" />
-    <Compile Include="Core\Timings.cs" />
-    <Compile Include="Domain\OfficeManager.cs" />
+    <Compile Include="Core\ILogRetriever.cs" />
+    <Compile Include="Core\IRuleProvider.cs" />
+    <Compile Include="Core\ITaskMaster.cs" />
+    <Compile Include="Core\ITaskMasterFactory.cs" />
+    <Compile Include="Core\LoggingResponse.cs" />
+    <Compile Include="Core\State.cs" />
+    <Compile Include="Core\StateChangedEventArgs.cs" />
+    <Compile Include="Core\StateChangedEventHandler.cs" />
+    <Compile Include="Domain\Rules.cs" />
+    <Compile Include="Domain\TaskMaster.cs" />
+    <Compile Include="Domain\TaskMasterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

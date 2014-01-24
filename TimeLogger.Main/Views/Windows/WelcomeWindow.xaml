@@ -1,0 +1,49 @@
+﻿<Window x:Class="TimeLogger.Wpf.Views.Windows.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        xmlns:vm="clr-namespace:TimeLogger.Wpf.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:WelcomeViewModel}"
+        mc:Ignorable="d"
+        Title="LogWindow" Height="231" Width="528">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0">Sleep (mins)</TextBlock>
+        <TextBlock Grid.Row="1">Prompt Snooze (mins)</TextBlock>
+        <TextBlock Grid.Row="2">Max Prompt Snooze (mins)</TextBlock>
+        <TextBlock Grid.Row="3">Start Date/Time</TextBlock>
+        <TextBlock Grid.Row="4">Time Logging Ticket(s)</TextBlock>
+
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Text="{Binding SleepDurationMins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Text="{Binding SnoozeDurationMins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 Text="{Binding MaxSnoozeDurationMins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <xctk:TimePicker
+            Grid.Row="3" Grid.Column="1"
+            Value="{Binding StartTime, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Row="4" Grid.Column="1"
+                 Text="{Binding TimeLoggingTickets, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Button Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                Command="{Binding Begin}">
+            Start Logging
+        </Button>
+    </Grid>
+</Window>
