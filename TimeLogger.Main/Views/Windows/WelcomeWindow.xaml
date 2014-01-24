@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
         xmlns:vm="clr-namespace:TimeLogger.Wpf.ViewModels"
         d:DataContext="{d:DesignInstance Type=vm:WelcomeViewModel}"
-        mc:Ignorable="d"
+        mc:Ignorable="d" SizeToContent="Height"
         Title="LogWindow" Height="231" Width="528">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>

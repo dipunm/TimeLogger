@@ -7,12 +7,12 @@
         xmlns:controls="clr-namespace:TimeLogger.Wpf.Views.UserControls"
         xmlns:viewModels="clr-namespace:TimeLogger.Wpf.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewModels:LoggerViewModel}"
-        Height="Auto" Width="599"
+        Height="Auto" Width="599" SizeToContent="Height"
         Title="{Binding Title}">
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <controls:Statistics Grid.Row="0" DataContext="{Binding Stats}" />
         <controls:Form Grid.Row="1" DataContext="{Binding Entry}" />

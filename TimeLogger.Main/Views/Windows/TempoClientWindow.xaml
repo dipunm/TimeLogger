@@ -13,19 +13,26 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Background="DarkGray">
-            <StackPanel.Resources>
-                <Style x:Key="LoggedIn">
+        <Grid Background="DarkGray">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5">
+                <StackPanel.Resources>
+                    <Style x:Key="LoggedIn">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding LoggedIn}" Value="True">
                             <Setter Property="TextBlock.Visibility" Value="Visible" />
                             <Setter Property="TextBox.Visibility" Value="Visible" />
                             <Setter Property="PasswordBox.Visibility" Value="Visible" />
+                            <Setter Property="PasswordBox.Margin" Value="5" />
+                            <Setter Property="TextBlock.Margin" Value="5" />
+                            <Setter Property="TextBox.Margin" Value="5" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding LoggedIn}" Value="False">
                             <Setter Property="TextBlock.Visibility" Value="Collapsed" />
                             <Setter Property="TextBox.Visibility" Value="Collapsed" />
                             <Setter Property="PasswordBox.Visibility" Value="Collapsed" />
+                            <Setter Property="PasswordBox.Margin" Value="5" />
+                            <Setter Property="TextBlock.Margin" Value="5" />
+                            <Setter Property="TextBox.Margin" Value="5" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -35,11 +42,18 @@
                             <Setter Property="TextBlock.Visibility" Value="Collapsed" />
                             <Setter Property="TextBox.Visibility" Value="Collapsed" />
                             <Setter Property="PasswordBox.Visibility" Value="Collapsed" />
+                            <Setter Property="PasswordBox.Margin" Value="5" />
+                            <Setter Property="PasswordBox.Margin" Value="5" />
+                            <Setter Property="TextBlock.Margin" Value="5" />
+                            <Setter Property="TextBox.Margin" Value="5" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding LoggedIn}" Value="False">
                             <Setter Property="TextBlock.Visibility" Value="Visible" />
                             <Setter Property="TextBox.Visibility" Value="Visible" />
                             <Setter Property="PasswordBox.Visibility" Value="Visible" />
+                            <Setter Property="PasswordBox.Margin" Value="5" />
+                            <Setter Property="TextBlock.Margin" Value="5" />
+                            <Setter Property="TextBox.Margin" Value="5" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -57,6 +71,7 @@
             <PasswordBox x:Name="Password" Style="{StaticResource LoggedOut}" Width="100" VerticalAlignment="Center" />
             <Button Style="{StaticResource LoggedOut}" VerticalAlignment="Bottom" Click="Button_Click">Login</Button>
         </StackPanel>
+        </Grid>
         <ScrollViewer Grid.Row="1" VerticalAlignment="Stretch">
         <StackPanel Margin="5"  VerticalAlignment="Stretch"  CanVerticallyScroll="True">
             <TextBlock FontFamily="Nirmala UI" FontSize="16" FontWeight="Bold" TextDecorations="{x:Null}" Margin="0,0,0,10">Pending Sessions:</TextBlock>
