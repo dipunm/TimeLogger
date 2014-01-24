@@ -7,6 +7,10 @@ namespace TimeLogger.Wpf.ViewModels
         private int _numberOfMinutesLogged;
         private int _numberOfMinutesReq;
 
+        public int NumberOfMinutesLeft
+        {
+            get { return NumberOfMinutesRequired - NumberOfMinutesLogged; }
+        }
         public int NumberOfMinutesRequired
         {
             get { return _numberOfMinutesReq; }
@@ -14,6 +18,7 @@ namespace TimeLogger.Wpf.ViewModels
             {
                 _numberOfMinutesReq = value;
                 OnPropertyChanged("NumberOfMinutesRequired");
+                OnPropertyChanged("NumberOfMinutesLeft");
                 OnPropertyChanged("PercentageComplete");
             }
         }
@@ -25,6 +30,7 @@ namespace TimeLogger.Wpf.ViewModels
             {
                 _numberOfMinutesLogged = value;
                 OnPropertyChanged("NumberOfMinutesLogged");
+                OnPropertyChanged("NumberOfMinutesLeft");
                 OnPropertyChanged("PercentageComplete");
             }
         }

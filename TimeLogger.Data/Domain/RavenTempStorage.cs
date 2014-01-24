@@ -4,6 +4,7 @@ using System.Linq;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Client.Indexes;
+using Raven.Client.Linq;
 using Raven.Database.Server;
 using TimeLogger.Cache.Core;
 
@@ -20,7 +21,7 @@ namespace TimeLogger.Main
             NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(_documentStore.Configuration.Port);
         }
 
-        public RavenTempStorage(string path) 
+        public RavenTempStorage(string path)
             : this(new EmbeddableDocumentStore()
             {
                 DataDirectory = path
@@ -35,7 +36,7 @@ namespace TimeLogger.Main
             })
         {
         }
-        
+
         public void Initialise()
         {
             _documentStore.Initialize();
@@ -55,10 +56,13 @@ namespace TimeLogger.Main
         {
             using (IDocumentSession session = _documentStore.OpenSession())
             {
-                return session.Query<WorkLog>("WorkLogs/BySession")
-                       .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)))
-                       .Where(l => l.SessionToken == sessionKey)
-                       .ToList();
+                IEnumerable<WorkLog> query = session.Query<WorkLog>("WorkLogs/BySession")
+                    .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)));
+
+                if (sessionKey != "ALL")
+                    query = query.Where(l => l.SessionToken == sessionKey);
+
+                return query.ToList();
             }
         }
 
@@ -84,11 +88,26 @@ namespace TimeLogger.Main
         {
             using (IDocumentSession session = _documentStore.OpenSession())
             {
-                return session.Query<WorkLog>()
-                    .Where(l =>  l.Archived != true)
-                    .Select(l => l.SessionToken)
+                return Queryable.Select(session.Query<WorkLog>()
+                        .Where(l => l.Archived != true), l => l.SessionToken)
                     .Distinct()
                     .ToList();
+            }
+        }
+
+        public void Archive(string sessionKey)
+        {
+            using (IDocumentSession session = _documentStore.OpenSession())
+            {
+                var logs = Queryable.Where(session.Query<WorkLog>()
+                        .Where(l => l.Archived != true), l => l.SessionToken == sessionKey)
+                    .ToList();
+
+                foreach (var log in logs)
+                {
+                    log.SessionToken = sessionKey;
+                }
+                session.SaveChanges();
             }
         }
 

@@ -81,7 +81,7 @@
                                     <Button Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                             IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.LoggedIn}"
                                             Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.SubmitAction}" 
-                                            CommandParameter="{Binding}">
+                                            CommandParameter="{Binding GroupName}">
                                         Submit
                                     </Button>
                                 </Grid>

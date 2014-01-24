@@ -5,12 +5,13 @@
         mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:TimeLogger.Wpf.Views.UserControls"
-        d:DataContext="{d:DesignInstance Type=vm:LoggerViewModel}"
-        Height="211" Width="599"
+        xmlns:viewModels="clr-namespace:TimeLogger.Wpf.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewModels:LoggerViewModel}"
+        Height="Auto" Width="599"
         Title="{Binding Title}">
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <controls:Statistics Grid.Row="0" DataContext="{Binding Stats}" />

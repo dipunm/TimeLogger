@@ -19,7 +19,7 @@ namespace TimeLogger.Main.ViewModels
         private string _userName;
         private object _session;
 
-        public object Session
+        public object ProxySession
         {
             get { return _session; }
             set
@@ -36,8 +36,9 @@ namespace TimeLogger.Main.ViewModels
             WorkLogGroups = new ObservableCollection<WorkLogGroup>();
             LoginAction = new DelegateCommand(Login);
             LogoutAction = new DelegateCommand(Logout);
-            UpdateAction = new DelegateCommand(Update);
-            Update();
+            UpdateAction = new DelegateCommand(Refresh);
+            SubmitAction = new DelegateCommand(Submit);
+            Refresh();
         }
 
         public TempoViewModel()
@@ -51,15 +52,15 @@ namespace TimeLogger.Main.ViewModels
             if (!_proxy.IsValidSessionToken(session))
                 return;
 
-            Session = session;
+            ProxySession = session;
         }
 
         private void Logout()
         {
-            Session = null;
+            ProxySession = null;
         }
 
-        public void Update()
+        public void Refresh()
         {
             var sessions = _storage.GetNonArchivedSessionKeys();
             WorkLogGroups.Clear();
@@ -76,6 +77,21 @@ namespace TimeLogger.Main.ViewModels
             }
         }
 
+        public void Submit(object groupName)
+        {
+            if (!_proxy.IsValidSessionToken(ProxySession))
+            {
+                Logout();
+            }
+
+            foreach (var log in _storage.GetAllLogs(groupName as string))
+            {
+                _proxy.AddWorkLog(log, ProxySession);
+            }
+
+            _storage.Archive(groupName as string);
+        }
+
         public ICommand LoginAction { get; private set; }
         public ICommand LogoutAction { get; private set; }
         public ICommand UpdateAction { get; private set; }
@@ -83,7 +99,7 @@ namespace TimeLogger.Main.ViewModels
 
         public bool LoggedIn
         {
-            get { return Session != null; }
+            get { return ProxySession != null; }
         }
 
         public string UserName

@@ -16,7 +16,7 @@ namespace TimeLogger.Wpf.Views.UserControls
 
         private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://google.com");
+            Process.Start("https://jira.dfc.local:8443");
         }
     }
 }

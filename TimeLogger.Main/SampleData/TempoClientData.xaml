@@ -2,7 +2,7 @@
 <m:TempoViewModel xmlns:m="clr-namespace:TimeLogger.Main.ViewModels"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   UserName="dmistry"
-                  Session="92-53jf9f3jfiklfmw"
+                  ProxySession="Object"
                   >
     <m:TempoViewModel.WorkLogGroups>
         <m:WorkLogGroup GroupName="opmomsa" />
