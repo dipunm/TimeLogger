@@ -36,7 +36,7 @@ namespace TimeLogger.Main.ViewModels
             WorkLogGroups = new ObservableCollection<WorkLogGroup>();
             LoginAction = new DelegateCommand(Login);
             LogoutAction = new DelegateCommand(Logout);
-            UpdateAction = new DelegateCommand(Refresh);
+            RefreshAction = new DelegateCommand(Refresh);
             SubmitAction = new DelegateCommand(Submit);
             Refresh();
         }
@@ -70,7 +70,7 @@ namespace TimeLogger.Main.ViewModels
                 var group = new WorkLogGroup()
                     {
                         GroupName = session,
-                        TimeLogged = TimeSpan.FromMinutes(logs.Sum(l => l.Minutes)),
+                        TimeLogged = TimeSpan.FromMinutes(logs.Where(l => l.TicketCodes != null || l.TicketCodes.Count > 0).Sum(l => l.Minutes)),
                         Date = logs.First().Date
                     };
                 WorkLogGroups.Add(group);
@@ -90,11 +90,12 @@ namespace TimeLogger.Main.ViewModels
             }
 
             _storage.Archive(groupName as string);
+            Refresh();
         }
 
         public ICommand LoginAction { get; private set; }
         public ICommand LogoutAction { get; private set; }
-        public ICommand UpdateAction { get; private set; }
+        public ICommand RefreshAction { get; private set; }
         public ICommand SubmitAction { get; private set; }
 
         public bool LoggedIn

@@ -6,7 +6,7 @@
         Title="TempoClientWindow" Height="244" SizeToContent="Width"
         mc:Ignorable="d"
         d:DataContext="{d:DesignData Source=/SampleData/TempoClientData.xaml}"
-        Loaded="TempoClientWindow_OnLoaded"
+        Loaded="TempoClientWindow_OnLoaded" IsVisibleChanged="Window_IsVisibleChanged"
         >
     <Grid>
         <Grid.RowDefinitions>

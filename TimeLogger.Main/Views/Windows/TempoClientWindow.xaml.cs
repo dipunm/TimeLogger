@@ -40,14 +40,20 @@ namespace TimeLogger.Main.Views.Windows
 
         private void TempoClientWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.UpdateAction.CanExecute(null))
-                ViewModel.UpdateAction.Execute(null); 
+            if (ViewModel.RefreshAction.CanExecute(null))
+                ViewModel.RefreshAction.Execute(null); 
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (ViewModel.RefreshAction.CanExecute(null))
+                ViewModel.RefreshAction.Execute(null);
         }
     }
 }
