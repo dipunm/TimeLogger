@@ -14,4 +14,4 @@ The time you log can then be used to send to Tempo within Jira.
 - RavenDB: You can see your logs using the RavenDB web interface and even edit the data.
 - Push To Tempo: At the end of the week, simply hit submit for each day you logged time for.
 
-WARNING: ALWAYS CLOCK OUT AND CLOCK BACK IN BETWEEN DAYS.
+**WARNING: ALWAYS CLOCK OUT AND CLOCK BACK IN BETWEEN DAYS.**
