@@ -56,13 +56,20 @@ namespace TimeLogger.Main
         {
             using (IDocumentSession session = _documentStore.OpenSession())
             {
-                IEnumerable<WorkLog> query = session.Query<WorkLog>("WorkLogs/BySession")
-                    .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)));
-
+                IEnumerable<WorkLog> query = null;
                 if (sessionKey != "ALL")
-                    query = query.Where(l => l.SessionToken == sessionKey);
-
+                {
+                    query = session.Query<WorkLog>("WorkLogs/BySession")
+                        .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)))
+                        .Where(l => l.SessionToken == sessionKey);
+                }
+                else
+                {
+                    query = session.Query<WorkLog>("WorkLogs/BySession")
+                        .Customize(x => x.WaitForNonStaleResults(TimeSpan.FromMinutes(4)));
+                }
                 return query.ToList();
+
             }
         }
 

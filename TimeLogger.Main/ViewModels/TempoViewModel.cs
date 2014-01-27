@@ -67,13 +67,17 @@ namespace TimeLogger.Main.ViewModels
             foreach (var session in sessions)
             {
                 var logs = _storage.GetAllLogs(session);
-                var group = new WorkLogGroup()
+                logs = logs.Where(l => l.TicketCodes != null && l.TicketCodes.Count > 0).ToList();
+                if (logs.Count > 0)
+                {
+                    var group = new WorkLogGroup()
                     {
                         GroupName = session,
-                        TimeLogged = TimeSpan.FromMinutes(logs.Where(l => l.TicketCodes != null || l.TicketCodes.Count > 0).Sum(l => l.Minutes)),
+                        TimeLogged = TimeSpan.FromMinutes(logs.Sum(l => l.Minutes)),
                         Date = logs.First().Date
                     };
-                WorkLogGroups.Add(group);
+                    WorkLogGroups.Add(group);
+                }
             }
         }
 
