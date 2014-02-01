@@ -26,30 +26,34 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Grid.Row="0" Grid.Column="0">
-                <Run Text="What did you do?" />
+                How long?
             </TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
-                AcceptsReturn="True" HorizontalAlignment="Stretch"
-                Text="{Binding Comment, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="1" Grid.Column="0">
-                For how long?
-            </TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1"
+            <TextBox Grid.Row="0" Grid.Column="1"
                 Width="76" HorizontalAlignment="Left"
                 Text="{Binding MinutesWorked, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Grid.Row="2" Grid.Column="0">
+            
+
+            <TextBlock Grid.Row="1" Grid.Column="0">
                 Which Tickets?
             </TextBlock>
-            <TextBox Grid.Row="2" Grid.Column="1"
+            <TextBox Grid.Row="1" Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 Text="{Binding TicketCodes, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
-            <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"
+            <CheckBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"
                 IsChecked="{Binding IsBreak}">Break</CheckBox>
-            <TextBlock Grid.Row="1" Grid.Column="2">
+           <!-- <TextBlock Grid.Row="0" Grid.Column="2">
                 <Hyperlink Click="Hyperlink_OnClick">Jira</Hyperlink>
+            </TextBlock> -->
+
+            <TextBlock Grid.Row="2" Grid.Column="0">
+                What?
             </TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                AcceptsReturn="True" HorizontalAlignment="Stretch"
+                Text="{Binding Comment, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            
         </Grid>
         <Button Grid.Row="1"
                 Command="{Binding SaveWorkLog}">

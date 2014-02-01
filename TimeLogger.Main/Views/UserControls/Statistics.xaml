@@ -12,9 +12,9 @@
                 Margin="10,5,10,0" Height="7" VerticalAlignment="Top"
                 Value="{Binding PercentageComplete, Mode=OneWay}"/>
         <TextBlock x:Name="MinutesLeft" Margin="10,5,10,0" TextAlignment="Right">
-            <TextBlock Text="{Binding NumberOfMinutesLogged, StringFormat='{}{0} Out of', Mode=OneWay}"/>
+            <TextBlock Text="{Binding NumberOfMinutesLeft, StringFormat='{}{0} Minutes Left', Mode=OneWay}"/>
+            <TextBlock Text="{Binding NumberOfMinutesLogged, StringFormat=', {0} Out of', Mode=OneWay}"/>
             <TextBlock Text="{Binding NumberOfMinutesRequired, StringFormat=' {0} Minutes Logged', Mode=OneWay}"/>
-            <TextBlock Text="{Binding NumberOfMinutesLeft, StringFormat=', {0} Minutes Left', Mode=OneWay}"/>
         </TextBlock>
     </StackPanel>
 </UserControl>
