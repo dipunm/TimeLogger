@@ -17,6 +17,6 @@
         </Grid.RowDefinitions>
         <controls:Statistics Grid.Row="0" DataContext="{Binding Stats}" />
         <controls:Form Grid.Row="1" DataContext="{Binding Entry}" />
-        <TextBox Grid.Row="2" Height="Auto" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBox x:Name="NotesBox" Grid.Row="2" Height="Auto" AcceptsReturn="True" TextWrapping="Wrap"/>
     </Grid>
 </Window>
