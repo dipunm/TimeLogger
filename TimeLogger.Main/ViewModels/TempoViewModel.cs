@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using MVVM.Extensions;
@@ -88,13 +89,31 @@ namespace TimeLogger.Main.ViewModels
                 Logout();
             }
 
-            foreach (var log in _storage.GetAllLogs(groupName as string))
+            if (String.IsNullOrEmpty(groupName as string))
             {
-                _proxy.AddWorkLog(log, ProxySession);
+                SubmitAll();
             }
-
+            else
+            {
+                foreach (var log in _storage.GetAllLogs(groupName as string))
+                {
+                    _proxy.AddWorkLog(log, ProxySession);
+                }    
+            }
+            
             _storage.Archive(groupName as string);
             Refresh();
+        }
+
+        private void SubmitAll()
+        {
+            foreach (var name in WorkLogGroups
+                .Select(workLogGroup => workLogGroup.GroupName)
+                .Where(name => !String.IsNullOrWhiteSpace(name))
+            )
+            {
+                Submit(name);
+            }
         }
 
         public ICommand LoginAction { get; private set; }

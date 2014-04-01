@@ -112,7 +112,7 @@ namespace TimeLogger.Main
 
                 foreach (var log in logs)
                 {
-                    log.SessionToken = sessionKey;
+                    log.Archived = true;
                 }
                 session.SaveChanges();
             }
